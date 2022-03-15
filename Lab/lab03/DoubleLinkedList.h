@@ -227,14 +227,15 @@ List* destroyList(List* list){
 	if(list == NULL) return NULL;
 
 	//TODO: Cerinta 1g
-	ListNode *aux = list->first;
-	while (aux != NULL)
+	ListNode *aux = NULL;
+	while (list->first != NULL)
 	{
-		aux = aux->next;
-		free(aux->prev);
+		aux = list->first;
+		list->first = list->first->next;
+		free(aux);
 	}
 	free(list);
-	return list;
+	return NULL;
 }
 // -----------------------------------------------------------------------------
 

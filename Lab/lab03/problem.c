@@ -47,7 +47,15 @@ void printListReverse(List* list){
 /* Plaindrome computation function */
 int isPalindrome(List* list){
 	// TODO: Cerinta 2
-
+	ListNode *prim = list->first, *ult = list->last;
+	for(int i = 0; i < length(list)/2; i++){
+		if (prim->elem != ult->elem) {
+			return 0;
+		}else {
+			prim = prim->next;
+			ult = ult->prev;
+		}
+	}
 	return 1;
 }
 
