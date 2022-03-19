@@ -159,8 +159,6 @@ void add_train_car(TrainStation *station, int platform, int weight) {
     return;
 }
 
-//--------------------------------------------------------------- Okay pana aici
-
 
 /* Scoate vagoanele de o anumita greutate dintr-un tren.
  * 
@@ -169,7 +167,41 @@ void add_train_car(TrainStation *station, int platform, int weight) {
  * weight: greutatea vagonului scos
  */
 void remove_train_cars(TrainStation *station, int platform, int weight) {
+    // Error check
+    if ((station == NULL) || (platform >= station->platforms_no) || (platform < 0) || 
+        (station->platforms == NULL) || (station->platforms[platform] == NULL) || (weight < 0)) return;
+    TrainCar *aux = station->platforms[platform]->train_cars;
+
+    while (aux != NULL) {
+        // Case weight first
+        if ((aux->weight == weight) && (aux == station->platforms[platform]->train_cars)) {
+            // Only train car or not
+            if (aux->next != NULL) {
+                TrainCar * new_begin = aux->next;
+                free(aux);
+                aux = new_begin;
+                station->platforms[platform]->train_cars = new_begin;
+                continue;
+            } else {
+                free(aux);
+                station->platforms[platform]->train_cars = NULL;
+                return;
+            }
+        }
+        // Rest of the cases
+        if (aux->next != NULL) {
+            if (aux->next->weight == weight) {
+                TrainCar *new_car = aux->next->next;
+                free(aux->next);
+                aux->next = new_car;
+            }
+        }
+        aux = aux->next;
+    }
+    return;
 }
+
+//--------------------------------------------------------------- Okay pana aici
 
 
 /* Muta o secventa de vagoane dintr-un tren in altul.
