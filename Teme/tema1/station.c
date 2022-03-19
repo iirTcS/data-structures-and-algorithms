@@ -43,11 +43,13 @@ void close_train_station(TrainStation *station) {
     // Frees train station
     for (int i = 0; i < station->platforms_no; i++) {
         if (station->platforms[i] != NULL) {
-            TrainCar* aux = station->platforms[i]->train_cars, *aux_free;
-            while (aux != NULL) {
-                aux_free = aux;
-                aux=aux->next;
-                free(aux_free);
+            if (station->platforms[i]->train_cars != NULL) {
+                TrainCar* aux = station->platforms[i]->train_cars, *aux_free;
+                while (aux != NULL) {
+                    aux_free = aux;
+                    aux=aux->next;
+                    free(aux_free);
+                }
             }
             free(station->platforms[i]);
         }
@@ -65,7 +67,7 @@ void close_train_station(TrainStation *station) {
  */
 void show_existing_trains(TrainStation *station, FILE *f) {
     // Error check
-    if (station != NULL && f != NULL) { 
+    if (station != NULL && f != NULL && station->platforms != NULL) { 
         for (int i = 0; i < station->platforms_no; i++){
             // Nr of the gate
             fprintf(f,"%d: ",i);
@@ -99,14 +101,12 @@ void arrive_train(TrainStation *station, int platform, int locomotive_power) {
     // Error check
     if ((platform >= station->platforms_no) || (platform < 0)|| (station == NULL) || 
     station->platforms[platform] != NULL) return;
-
+    // Train arrives
     station->platforms[platform] = malloc(sizeof(Train));
     station->platforms[platform]->locomotive_power = locomotive_power;
     station->platforms[platform]->train_cars = NULL;
     return;
 }
-
-//--------------------------------------------------------------- Okay pana aici
 
 
 /* Elibereaza un peron.
@@ -115,19 +115,22 @@ void arrive_train(TrainStation *station, int platform, int locomotive_power) {
  * platform: peronul de pe care pleaca trenul
  */
 void leave_train(TrainStation *station, int platform) {
-    // if ((platform >= station->platforms_no) || (station == NULL)) return;
-    // if (station->platforms[platform] != NULL) {
-    //     TrainCar *aux = station->platforms[platform]->train_cars,
-    //             *aux_free = NULL;
-    //     while (aux != NULL) {
-    //         aux_free = aux;
-    //         aux = aux->next;
-    //         free(aux_free);
-    //     }
-    //     free(station->platforms[platform]);
-    // }
+    // Error check
+    if ((station == NULL) || (platform >= station->platforms_no) || (platform < 0) || 
+        (station->platforms == NULL) || (station->platforms[platform] == NULL)) return;    
+    // Free train
+    TrainCar *aux = station->platforms[platform]->train_cars, *aux_free = NULL;
+    while (aux != NULL) {
+        aux_free = aux;
+        aux = aux->next;
+        free(aux_free);
+    }
+    free(station->platforms[platform]);
+    station->platforms[platform] = NULL; // Fii atent la intoarcerea null dupa alocare
+    return;
 }
 
+//--------------------------------------------------------------- Okay pana aici
 
 /* Adauga un vagon la capatul unui tren.
  * 
