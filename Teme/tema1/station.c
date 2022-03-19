@@ -126,11 +126,10 @@ void leave_train(TrainStation *station, int platform) {
         free(aux_free);
     }
     free(station->platforms[platform]);
-    station->platforms[platform] = NULL; // Fii atent la intoarcerea null dupa alocare
+    station->platforms[platform] = NULL; // Fii atent la intoarcerea null dupa alocare (posibila eroare)
     return;
 }
 
-//--------------------------------------------------------------- Okay pana aici
 
 /* Adauga un vagon la capatul unui tren.
  * 
@@ -139,7 +138,28 @@ void leave_train(TrainStation *station, int platform) {
  * weight: greutatea vagonului adaugat
  */
 void add_train_car(TrainStation *station, int platform, int weight) {
+    // Error check
+    if ((station == NULL) || (platform >= station->platforms_no) || (platform < 0) || 
+        (station->platforms == NULL) || (station->platforms[platform] == NULL) || (weight < 0)) return;
+    // TrainCar creation
+    TrainCar *new_car = malloc(sizeof(TrainCar));
+    new_car->weight = weight;
+    new_car->next = NULL;
+    // No car yet 
+    if (station->platforms[platform]->train_cars == NULL) {
+        station->platforms[platform]->train_cars = new_car;
+    } else {
+    // At least one car exists
+        TrainCar *aux = station->platforms[platform]->train_cars;
+        while (aux->next != NULL){
+            aux = aux->next;
+        }
+        aux->next = new_car;
+    }
+    return;
 }
+
+//--------------------------------------------------------------- Okay pana aici
 
 
 /* Scoate vagoanele de o anumita greutate dintr-un tren.
