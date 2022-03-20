@@ -4,7 +4,7 @@
 
 #include "station.h"
 
-// Helping functions
+// Helping functions------------------------------------
 int length_car(TrainCar *train) {
     int lenght = 0;
     TrainCar *aux = train;
@@ -24,6 +24,17 @@ void print_car(TrainCar *train) {
     printf("\n");
     return;
 }
+
+int train_cars_weight(TrainCar* train) {
+    TrainCar* aux = train;
+    int weight = 0;
+    while (aux != NULL) {
+        weight += aux->weight;
+        aux = aux->next;
+    }
+    return weight;
+}
+//--------------------------------------------------
 
 
 /* Creeaza o gara cu un numar fix de peroane.
@@ -248,7 +259,6 @@ void move_train_cars(TrainStation *station, int platform_a, int pos_a,
                 *base = NULL, *old_pointer = NULL, *last_point_cars_moved = NULL;
     
 // Cut phase
-    printf("%d %d %d %d %d\n", platform_a, pos_a, cars_no, platform_b, pos_b);
     if (pos_a == 1) {
         // First position (needs to replace pointer in the Tain)
         car_moved = aux;
@@ -300,10 +310,7 @@ void move_train_cars(TrainStation *station, int platform_a, int pos_a,
     }
     return;
 }
-
-//--------------------------------------------------------------- Okay pana aici
-
-
+ 
 
 /* Gaseste trenul cel mai rapid.
  * 
@@ -312,7 +319,17 @@ void move_train_cars(TrainStation *station, int platform_a, int pos_a,
  * return: peronul pe care se afla trenul
  */
 int find_express_train(TrainStation *station) {
-    return -1;
+    int max = station->platforms[0]->locomotive_power - train_cars_weight(station->platforms[0]->train_cars),
+        gate = 0;
+    for (int i = 0; i < station->platforms_no; i++) {
+        if (station->platforms[i] != NULL) {
+            if (station->platforms[i]->locomotive_power - train_cars_weight(station->platforms[i]->train_cars) > max) {
+                max = station->platforms[i]->locomotive_power - train_cars_weight(station->platforms[i]->train_cars);
+                gate = i;
+            }
+        }
+    }
+    return gate;
 }
 
 
@@ -323,6 +340,15 @@ int find_express_train(TrainStation *station) {
  * return: peronul pe care se afla trenul
  */
 int find_overload_train(TrainStation *station) {
+    int gate = 0;
+    for (int i = 0; i < station->platforms_no; i++) {
+        if (station->platforms[i] != NULL) {
+            int max = train_cars_weight(station->platforms[i]->train_cars) - station->platforms[i]->locomotive_power;
+            if (max > 0) {
+                return i;
+            }
+        }
+    }
     return -1;
 }
 
@@ -334,9 +360,20 @@ int find_overload_train(TrainStation *station) {
  * return: peronul pe care se afla trenul
  */
 int find_optimal_train(TrainStation *station) {
-    return -1;
+    int min = station->platforms[0]->locomotive_power - train_cars_weight(station->platforms[0]->train_cars),
+        gate = 0;
+    for (int i = 0; i < station->platforms_no; i++) {
+        if (station->platforms[i] != NULL) {
+            if (station->platforms[i]->locomotive_power - train_cars_weight(station->platforms[i]->train_cars) < min) {
+                min = station->platforms[i]->locomotive_power - train_cars_weight(station->platforms[i]->train_cars);
+                gate = i;
+            }
+        }
+    }
+    return gate;
 }
 
+//--------------------------------------------------------------- Okay pana aici
 
 /* Gaseste trenul cu incarcatura nedistribuita bine.
  * 
