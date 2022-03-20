@@ -4,6 +4,27 @@
 
 #include "station.h"
 
+// Helping functions
+int length_car(TrainCar *train) {
+    int lenght = 0;
+    TrainCar *aux = train;
+    while (aux != NULL) {
+        lenght++;
+        aux = aux->next;
+    }
+    return lenght;
+}
+
+void print_car(TrainCar *train) {
+    TrainCar *aux = train;
+    while (aux != NULL) {
+        printf("-|%d|",aux->weight);
+        aux = aux->next;
+    }
+    printf("\n");
+    return;
+}
+
 
 /* Creeaza o gara cu un numar fix de peroane.
  * 
@@ -170,6 +191,7 @@ void remove_train_cars(TrainStation *station, int platform, int weight) {
     // Error check
     if ((station == NULL) || (platform >= station->platforms_no) || (platform < 0) || 
         (station->platforms == NULL) || (station->platforms[platform] == NULL) || (weight < 0)) return;
+    
     TrainCar *aux = station->platforms[platform]->train_cars;
 
     while (aux != NULL) {
@@ -201,8 +223,6 @@ void remove_train_cars(TrainStation *station, int platform, int weight) {
     return;
 }
 
-//--------------------------------------------------------------- Okay pana aici
-
 
 /* Muta o secventa de vagoane dintr-un tren in altul.
  * 
@@ -215,7 +235,74 @@ void remove_train_cars(TrainStation *station, int platform, int weight) {
  */
 void move_train_cars(TrainStation *station, int platform_a, int pos_a, 
                                 int cars_no, int platform_b, int pos_b) {
+// Error check and useless input check
+    if ((station == NULL) || (station->platforms[platform_a] == NULL) || (station->platforms == NULL) ||
+        (platform_a >= station->platforms_no) || (platform_a < 0) || (pos_a <= 0) ||
+        (pos_a > length_car(station->platforms[platform_a]->train_cars)) ||
+        (platform_b >= station->platforms_no) || (platform_b < 0) || (pos_b <= 0) ||
+        (pos_b > length_car(station->platforms[platform_b]->train_cars)+1) ||
+        ((cars_no + pos_a - 1) > length_car(station->platforms[platform_a]->train_cars)) ||
+        (cars_no > length_car(station->platforms[platform_a]->train_cars)) || (cars_no == 0)) return;
+    
+    TrainCar * car_moved = NULL, *aux = station->platforms[platform_a]->train_cars,
+                *base = NULL, *old_pointer = NULL, *last_point_cars_moved = NULL;
+    
+// Cut phase
+    printf("%d %d %d %d %d\n", platform_a, pos_a, cars_no, platform_b, pos_b);
+    if (pos_a == 1) {
+        // First position (needs to replace pointer in the Tain)
+        car_moved = aux;
+        for (int i = 0; i < cars_no; i++) {
+            old_pointer = aux;
+            aux = aux->next;
+        }
+        station->platforms[platform_a]->train_cars = aux;
+        last_point_cars_moved = old_pointer;    // pointer to the lst postion of the sequence
+        old_pointer->next = NULL;
+    } else {
+        int i = 0;
+        while (((i+1) != pos_a) && (aux->next != NULL)) {
+            base = aux;
+            aux=aux->next;
+            i++;
+        }
+        car_moved = aux;
+        for(int i = 0; i < cars_no; i++) {
+            if (aux == NULL) break;
+            old_pointer = aux;
+            aux = aux->next;
+        }
+        last_point_cars_moved = old_pointer;
+        old_pointer->next = NULL;
+        base->next= aux;
+    }  // car_moved result
+// Paste phase
+    if (pos_b == 1) {
+        aux = station->platforms[platform_b]->train_cars;
+        station->platforms[platform_b]->train_cars = car_moved;
+        last_point_cars_moved->next = aux;
+    } else if (pos_b == length_car(station->platforms[platform_b]->train_cars) + 1) {
+        aux = station->platforms[platform_b]->train_cars;
+        while (aux->next != NULL){
+            aux = aux->next;
+        }
+        aux->next = car_moved;    
+    } else {
+        aux = station->platforms[platform_b]->train_cars;
+        for (int i = 1; i < length_car(station->platforms[platform_b]->train_cars); i++) {
+            if (i + 1 == pos_b) {
+                last_point_cars_moved ->next= aux->next;
+                aux->next = car_moved;
+                break;
+            }
+            aux = aux->next;
+        }
+    }
+    return;
 }
+
+//--------------------------------------------------------------- Okay pana aici
+
 
 
 /* Gaseste trenul cel mai rapid.
