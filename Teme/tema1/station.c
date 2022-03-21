@@ -5,6 +5,8 @@
 #include "station.h"
 
 // Helping functions------------------------------------
+#define MAX 1000
+
 int length_car(TrainCar *train) {
     int lenght = 0;
     TrainCar *aux = train;
@@ -158,7 +160,7 @@ void leave_train(TrainStation *station, int platform) {
         free(aux_free);
     }
     free(station->platforms[platform]);
-    station->platforms[platform] = NULL; // Fii atent la intoarcerea null dupa alocare (posibila eroare)
+    station->platforms[platform] = NULL;
     return;
 }
 
@@ -262,7 +264,7 @@ void move_train_cars(TrainStation *station, int platform_a, int pos_a,
     
 // Cut phase
     if (pos_a == 1) {
-        // First position (needs to replace pointer in the Tain)
+        // First position (needs to replace pointer in the Train)
         car_moved = aux;
         for (int i = 0; i < cars_no; i++) {
             old_pointer = aux;
@@ -321,12 +323,15 @@ void move_train_cars(TrainStation *station, int platform_a, int pos_a,
  * return: peronul pe care se afla trenul
  */
 int find_express_train(TrainStation *station) {
-    int max = station->platforms[0]->locomotive_power - train_cars_weight(station->platforms[0]->train_cars),
+    int max = station->platforms[0]->locomotive_power - 
+                train_cars_weight(station->platforms[0]->train_cars),
         gate = 0;
     for (int i = 0; i < station->platforms_no; i++) {
         if (station->platforms[i] != NULL) {
-            if (station->platforms[i]->locomotive_power - train_cars_weight(station->platforms[i]->train_cars) > max) {
-                max = station->platforms[i]->locomotive_power - train_cars_weight(station->platforms[i]->train_cars);
+            int compare = station->platforms[i]->locomotive_power -
+                            train_cars_weight(station->platforms[i]->train_cars);
+            if (compare > max) {
+                max = compare;
                 gate = i;
             }
         }
@@ -344,7 +349,8 @@ int find_express_train(TrainStation *station) {
 int find_overload_train(TrainStation *station) {
     for (int i = 0; i < station->platforms_no; i++) {
         if (station->platforms[i] != NULL) {
-            int max = train_cars_weight(station->platforms[i]->train_cars) - station->platforms[i]->locomotive_power;
+            int max = train_cars_weight(station->platforms[i]->train_cars) -
+                        station->platforms[i]->locomotive_power;
             if (max > 0) {
                 return i;
             }
@@ -361,13 +367,14 @@ int find_overload_train(TrainStation *station) {
  * return: peronul pe care se afla trenul
  */
 int find_optimal_train(TrainStation *station) {
-    int min = 345,
+    int min = MAX, // Defalute value
         gate = 0;
     for (int i = 0; i < station->platforms_no; i++) {
         if (station->platforms[i] != NULL) {
-            if ((station->platforms[i]->locomotive_power - train_cars_weight(station->platforms[i]->train_cars) < min) &&
-            (station->platforms[i]->locomotive_power - train_cars_weight(station->platforms[i]->train_cars) > 0)) {
-                min = station->platforms[i]->locomotive_power - train_cars_weight(station->platforms[i]->train_cars);
+            int compare = station->platforms[i]->locomotive_power -
+                            train_cars_weight(station->platforms[i]->train_cars);
+            if ((compare < min) && (compare > 0)) {
+                min = compare;
                 gate = i;
             }
         }
@@ -375,7 +382,6 @@ int find_optimal_train(TrainStation *station) {
     return gate;
 }
 
-//--------------------------------------------------------------- Okay pana aici
 
 /* Gaseste trenul cu incarcatura nedistribuita bine.
  * 
@@ -386,16 +392,20 @@ int find_optimal_train(TrainStation *station) {
  */
 int find_heaviest_sequence_train(TrainStation *station, int cars_no, TrainCar **start_car) {
     *(start_car) = NULL;
-    int max = 0, to_return = -1;
+    int max = 0, pos_to_return = -1;
     
     for(int i = 0; i < station->platforms_no; i++) {
         // Error check
         if (station->platforms[i] != NULL && station->platforms[i]->train_cars != NULL) {
             if (length_car(station->platforms[i]->train_cars) >= cars_no && cars_no > 0) {
+                // Traveling car by car troughout the train
                 TrainCar *moving_pointer = station->platforms[i]->train_cars;
-                for (int j = 0; j < length_car(station->platforms[i]->train_cars)-cars_no + 1; j++) {
+                int length = length_car(station->platforms[i]->train_cars);
+                // Train parse
+                for (int j = 0; j < (length - cars_no + 1); j++) {
                     int k = 1, weight = 0;
                     TrainCar *aux = moving_pointer; 
+                    // Sequence check
                     while (aux != NULL) {
                         weight += aux->weight;
                         if (k == cars_no) {
@@ -404,9 +414,10 @@ int find_heaviest_sequence_train(TrainStation *station, int cars_no, TrainCar **
                         k++;
                         aux = aux->next;
                     }
+                    // The heaviest sequence
                     if (weight > max) {
                         max = weight;
-                        to_return = i;
+                        pos_to_return = i;
                         *(start_car) = moving_pointer;
                     }
                     moving_pointer = moving_pointer->next;
@@ -414,7 +425,7 @@ int find_heaviest_sequence_train(TrainStation *station, int cars_no, TrainCar **
             }
         }
     }
-    return to_return;
+    return pos_to_return;
 }
 
 
@@ -425,6 +436,7 @@ int find_heaviest_sequence_train(TrainStation *station, int cars_no, TrainCar **
  */
 void order_train(TrainStation *station, int platform) {
     int to_do = 1;
+    // Bubble sort train
     while (to_do) {
         TrainCar *aux = station->platforms[platform]->train_cars;
         to_do = 0;
@@ -446,8 +458,10 @@ void order_train(TrainStation *station, int platform) {
  * station: gara existenta
  */
 void fix_overload_train(TrainStation *station) {
+    // Overload train find;
     int pos = find_overload_train(station);
     if (pos < 0) return;
+    // Creating secondary station (copy train for possiblity check)
     TrainStation *im_station = open_train_station(length_car(station->platforms[pos]->train_cars));
     for (int i = 0; i < length_car(station->platforms[pos]->train_cars); i++) {
         arrive_train(im_station, i, station->platforms[pos]->locomotive_power);
@@ -457,12 +471,13 @@ void fix_overload_train(TrainStation *station) {
             aux = aux->next;
         }
     }
+    // Remove a train car for every case 
     TrainCar *aux = station->platforms[pos]->train_cars;
     for (int i = 0; i < length_car(station->platforms[pos]->train_cars); i++) {
         remove_train_cars(im_station,i,aux->weight);
         aux = aux->next;
     }
-
+    // Checking the train that has the most optimal weight
     int max = 0;
     for (int i = 0; i < im_station->platforms_no; i++) {
         if ((train_cars_weight(im_station->platforms[i]->train_cars) <= im_station->platforms[i]->locomotive_power) &&
@@ -475,4 +490,5 @@ void fix_overload_train(TrainStation *station) {
         }
     }
     close_train_station(im_station);
+    return;
 }
