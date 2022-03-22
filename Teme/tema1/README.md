@@ -1,5 +1,16 @@
 # Train Station
-Program that keeps a record of the train staion and easily finds the information and solutions to given problems.
+                 _-====-__-======-__-=======-___-========-_____-============-__
+               _(                                                             _)
+            OO(      Application that keeps the records of a train staion.    )_
+           0  (  Easily finds the information and solutions to given problems. _)
+         o0     (_                                                           _)
+        o         '=-___-===-_____-=======-__-=======-___________-====-dwb-='
+      .o                                
+     . ______ ________ ______________  ____________ _____________
+   _()_||__|| |      | |            |  |          | |           |
+  (         | |      | |            |  |          | |           |
+ /-OO----OO""="OO--OO"="OO--------OO"="OO-------OO"="OO-------OO"=P
+#####################################################################
 # 1. Operation :
 1. arrive_train :
     1. initializes a train.
