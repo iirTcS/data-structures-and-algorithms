@@ -30,7 +30,7 @@ Stack* createStack(void){
 }
 
 int isStackEmpty(Stack* stack){
-	return stack->head == 0;
+	return stack->head == NULL;
 }
 
 void push(Stack *stack, Item elem){
@@ -46,7 +46,7 @@ Item top(Stack *stack){
 	return stack->head->elem;
 } 
 
-Item pop(Stack *stack){
+void pop(Stack *stack){
 	Item to_return;
 	if (stack->size > 0) {
 		StackNode *remove = stack->head;
@@ -55,7 +55,7 @@ Item pop(Stack *stack){
 		Item to_return = remove->elem;
 		free(remove);
 	}
-	return to_return;  
+	return;  
 }
 
 void destroyStack(Stack *stack){

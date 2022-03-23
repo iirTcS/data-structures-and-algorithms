@@ -15,7 +15,7 @@ int isBalanced(const char *str, int length){
    */
   int ret = 1;
   if (str[0] == '{' || str[0] == '(' || str[0] == '[') {
-    Stack *stack = createStack(), *stack2 =createStack();    
+    Stack *stack = createStack();   
       for (int i = 0; i < length; i++) {
         if (str[i] == '{' || str[i] == '(' || str[i] == '[') {
           push(stack, str[i]);
@@ -30,6 +30,7 @@ int isBalanced(const char *str, int length){
             if (elem1 == '(' && str[i] == ')') continue;
             if (elem1 == '[' && str[i] == ']') continue;
             ret = 0;
+            break;
           }
         }
       }
@@ -37,7 +38,6 @@ int isBalanced(const char *str, int length){
             ret = 0;
       }
       destroyStack(stack);
-      destroyStack(stack2);
   }
     return ret;
       
