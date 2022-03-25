@@ -48,7 +48,7 @@ int train_cars_weight(TrainCar* train) {
 TrainStation* open_train_station(int platforms_no) {
     // Error check
     if (platforms_no <= 0) return NULL;
-    
+
     // Train station allocation
     TrainStation *tr_st = malloc(sizeof(TrainStation));
     // Pointer validation
