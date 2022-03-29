@@ -86,9 +86,13 @@ TSortedList insert(TSortedList lista, T element) {
 TSortedList deleteOnce(TSortedList lista, T element) {
     TSortedList aux = lista;
     if (element == lista->value) {
-        TSortedList delete = lista->next;
-        free(lista);
-        lista = delete;
+        if (lista->next != NULL) {
+            TSortedList delete = lista->next;
+            free(lista);
+            lista = delete;
+        } else {
+            free(lista);
+        }
     }
     if (contains(lista,element)) {
         while(aux != NULL) {
