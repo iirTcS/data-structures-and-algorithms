@@ -146,13 +146,31 @@ int maxDepth(Tree root) {
 *	Funcție care construiește oglinditul unui arbore binar
 */
 void mirror(Tree root) {
-	// TODO 9
+	if (root == NULL) {
+		return;
+	}
+	mirror(root->left);
+	mirror(root->right);
+
+	Tree aux= root->left;
+	root->left = root->right;
+	root->right = aux;
 }
 
 /*
 *	Funcție care verifică dacă doi arbori binari sunt identici
 */
 int sameTree(Tree root1, Tree root2) {
-	// TODO 10
-	return -1;
+	if (root1 == NULL && root2==NULL)
+        return 1;
+    if (root1 != NULL && root2 != NULL)
+    {
+        return
+        (
+            root1->value == root2->value &&
+            sameTree(root1->left, root2->left) &&
+            sameTree(root2->right, root1->right)
+        );
+    }
+    return 0;
 }
