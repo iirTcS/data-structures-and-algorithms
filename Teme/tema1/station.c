@@ -436,21 +436,42 @@ int find_heaviest_sequence_train(TrainStation *station, int cars_no, TrainCar **
  */
 void order_train(TrainStation *station, int platform) {
     int to_do = 1;
-    // Bubble sort train
+    // Bubble sort a linked list by moving the nodes
     while (to_do) {
         TrainCar *aux = station->platforms[platform]->train_cars;
-        to_do = 0;
-        while (aux->next != NULL) {
-            if (aux->weight < aux->next->weight) { 
-                to_do = 1;
-                int temp = aux->next->weight;
-                aux->next->weight = aux->weight;
-                aux->weight = temp;
-            }
+        to_do = 0; // if to_do is 0 after a parsing through the loop it breaks
+        
+        // Case only one train car exists
+        if (station->platforms[platform]->train_cars->next == NULL) {
+            break;
+        // Case the first two pointers need to be switched
+        } else if (station->platforms[platform]->train_cars->weight < 
+            station->platforms[platform]->train_cars->next->weight) {
+            TrainCar *temp = station->platforms[platform]->train_cars,
+                    *temp_urm = station->platforms[platform]->train_cars->next;
+            temp->next = temp_urm->next;
+            temp_urm->next = temp;
+            station->platforms[platform]->train_cars = temp_urm;
+            to_do = 1;
+        // Rest of the cases
+        } else {
+            while (aux->next->next != NULL) {
+                if (aux->next->weight < aux->next->next->weight) { 
+                    to_do = 1;
+                    TrainCar *temp = aux,
+                            *temp_urm = aux->next,
+                            *temp_double = aux->next->next;
+                    temp->next = temp_double;
+                    temp_urm->next = temp_double->next;
+                    temp_double->next = temp_urm;
+                }
             aux = aux->next;
+            }
         }
     }
 }
+
+
 
 
 /* Scoate un vagon din trenul supraincarcat.

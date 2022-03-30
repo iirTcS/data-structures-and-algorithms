@@ -161,16 +161,13 @@ void mirror(Tree root) {
 *	Funcție care verifică dacă doi arbori binari sunt identici
 */
 int sameTree(Tree root1, Tree root2) {
-	if (root1 == NULL && root2==NULL)
+	if (root1 == NULL && root2 == NULL) {
         return 1;
-    if (root1 != NULL && root2 != NULL)
-    {
-        return
-        (
-            root1->value == root2->value &&
-            sameTree(root1->left, root2->left) &&
-            sameTree(root2->right, root1->right)
-        );
+	} else if (root1 != NULL && root2 != NULL) {
+        if (root1->value == root2->value && sameTree(root1->left, root2->left) &&
+            sameTree(root2->right, root1->right)) {
+				return 1;
+		}
     }
     return 0;
 }
