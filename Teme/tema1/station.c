@@ -253,11 +253,10 @@ void move_train_cars(TrainStation *station, int platform_a, int pos_a,
                                 int cars_no, int platform_b, int pos_b) {
 // Error check and useless input check
     if ((platform_a >= station->platforms_no) || (platform_a < 0) ||
-        (pos_a <= 0) || (pos_a > length_car(station->platforms[platform_a]->train_cars)) ||
-        (platform_b >= station->platforms_no) || (platform_b < 0) ||
-        (pos_b <= 0) || (pos_b > length_car(station->platforms[platform_b]->train_cars)+1) ||
+        (pos_a <= 0) || (platform_b >= station->platforms_no) || (platform_b < 0) ||
+        (pos_b <= 0) || (pos_b > length_car(station->platforms[platform_b]->train_cars) + 1) ||
         ((cars_no + pos_a - 1) > length_car(station->platforms[platform_a]->train_cars)) ||
-        (cars_no > length_car(station->platforms[platform_a]->train_cars)) || (cars_no == 0)) return;
+         (cars_no <= 0)) return;
     
     TrainCar * car_moved = NULL, *aux = station->platforms[platform_a]->train_cars,
                 *base = NULL, *old_pointer = NULL, *last_point_cars_moved = NULL;
