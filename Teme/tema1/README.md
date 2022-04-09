@@ -1,4 +1,5 @@
 # Train Station
+```
                  _-====-__-======-__-=======-___-========-_____-============-__
                _(                                                             _)
             OO(      Application that keeps the records of a train staion.    )_
@@ -11,6 +12,7 @@
   (         | |      | |            |  |          | |           |
  /-OO----OO""="OO--OO"="OO--------OO"="OO-------OO"="OO-------OO"=P
 #####################################################################
+```
 # 1. Operation :
 1. arrive_train :
     1. initializes a train.
