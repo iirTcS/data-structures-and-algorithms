@@ -21,7 +21,7 @@ typedef struct AVLTree{
 	int (*comp)(Item a, Item b);
 }AVLTree;
 
-AVLTree* avlCreateTree(int (*comp) (Item,Item))
+AVLTree* avlCreateTree(int (*comp) (Item a,Item b))
 {
 	AVLTree* newTree = (AVLTree*) malloc(sizeof(AVLTree));
 	newTree->comp = comp;
@@ -58,15 +58,39 @@ int max(int a, int b){
 
 // A utility function to right rotate subtree rooted with y
 void avlRightRotate(AVLTree *tree,  AVLNode *y){
+	AVLNode *x = y->r;
+	if (y == tree->root->l){
+		tree->root->l = x;
+	}
+	x->p = y->p;
+	y->p->r = x;
+	y->p = x;
+	y->r = x->l;
+	y->r->p = y;
+	x->l = y;
 	
+	y->height = max(y->l->height, y->r->height) + 1;
+	x->height = max(x->l->height, x->r->height) + 1;
+
 	
-	//TO DO HERE
 }
 
 // A utility function to left rotate subtree rooted with x
 void avlLeftRotate(AVLTree *tree, AVLNode *x){
+	AVLNode *y = x->l;
+	if (x == tree->root->l){
+		tree->root->l = y;
+	}
+	y->p = x->p;
+	y->p->l = y;
+	x->p = y;
+	x->l = y->r;
+	x->l->p = x;
+	y->r = x;
 	
-	//TO DO HERE
+	x->height = max(x->l->height, x->r->height) + 1;
+	y->height = max(y->l->height, y->r->height) + 1;
+
 }
 
 // Get Balance factor of node x
@@ -92,9 +116,54 @@ AVLNode* avlMaximum(AVLTree* tree, AVLNode* x){
 
 
 void avlInsert(struct AVLTree* tree, Item elem){
+	AVLNode * new_node = avlNewNode(tree);
+	new_node->elem = elem;
+// Base case	
+	if (tree->root->l == tree->nil) {
+		tree->root->l = new_node;
+		return;	
+	}
 	
-	//TO DO HERE
-
+	AVLNode * aux = tree->root->l;
+// Insert node in the tree
+	while (aux != tree->nil) {
+		if (*(aux->elem) == *elem) {
+			free(new_node);
+			return;
+		}
+		if (*(aux->elem) > *elem) {
+			if (aux->l != tree->nil){
+				aux = aux->l;
+			} else{
+				aux->l = new_node;
+				new_node->p = aux;
+				break;
+			}
+		} else { 
+			if (aux->r != tree->nil) {
+				aux = aux->r;
+			} else {
+				aux->r = new_node;
+				new_node->p = aux;
+				break;
+			}
+		}
+	}
+// Check balance
+	aux = new_node;
+	while (aux != tree->nil) {
+		int balance = avlGetBalance(aux);
+		if (balance <= 1 && balance >= -1) {
+			aux->height = max(aux->l->height, aux->r->height) + 1;
+			aux = aux->p;
+		} else if (balance < 1) {
+			avlRightRotate(tree, aux);
+			aux = aux->p;
+		} else {
+			avlLeftRotate(tree, aux);
+			aux = aux->p;
+		}
+	}
 }
 
 

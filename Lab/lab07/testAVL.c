@@ -130,7 +130,7 @@ typedef struct Test {
 } Test;
 
 int main(int argc, char* argv[]) {
-	Test tests[] =                                    // Define the tests you want
+	Test tests[] =                                // Define the tests you want
 	{
             { &testInit, 0.00 },
 			{ &testInsert, 0.2 },
