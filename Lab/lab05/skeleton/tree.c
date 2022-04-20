@@ -171,3 +171,7 @@ int sameTree(Tree root1, Tree root2) {
     }
     return 0;
 }
+
+void printnode() {
+	
+}
