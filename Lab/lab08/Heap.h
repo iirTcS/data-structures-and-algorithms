@@ -18,49 +18,95 @@ typedef struct heap{
 
 
 PriQueue* makeQueue(int maxHeapSize){
-	//TODO:
-	return NULL;
+	PriQueue *queue = malloc(sizeof(*queue));
+	queue->maxHeapSize = maxHeapSize;
+	queue->elem = malloc(sizeof(ItemType) * maxHeapSize);
+	queue->size = 0;
+	return queue;
 }
 
 int getLeftChild(int i){
-	//TODO:
-	return 0;
+	return 2*i + 1;
 }
 
 int getRightChild(int i) {
-	//TODO:
-	return 0;
+	return 2*i + 2;
 }
 
 int getParent(int i) {
-	//TODO:
-	return 0;
+	return (i - 1) / 2;
 }
 
 ItemType getMax(APriQueue h) {
-	//TODO:
+	return h->elem[0];
 }
 
 void siftUp(APriQueue h, int idx) {
-	//TODO:
+	if (idx != 0) {
+		while(idx != 0 && h->elem[idx].prior > h->elem[getParent(idx)].prior) {
+			ItemType aux = h->elem[idx];
+			h->elem[idx] = h->elem[getParent(idx)];
+			h->elem[getParent(idx)] = aux;
+			idx = getParent(idx);
+		}
+	}
+	return;
 }
 
 
 void insert(PriQueue *h, ItemType x) {
-	//TODO:
+	if (h->size  == h->maxHeapSize){
+		h->elem = realloc(h->elem, h->maxHeapSize * 2 * sizeof(ItemType));
+		h->maxHeapSize = h->maxHeapSize * 2;
+	}
+	h->elem[h->size] = x;
+	siftUp(h, h->size);
+	h->size++;
 }
 
 void siftDown(APriQueue h, int idx){
-
-	//TODO:
+	if (idx != h->size) {
+		while (h->elem[idx].prior < h->elem[getLeftChild(idx)].prior ) {
+			int sc = 0;
+			if (getLeftChild(idx) < h->size || getRightChild(idx) < h->size) {
+				if (getRightChild(idx) >= h->size) {
+					sc = getLeftChild(idx);
+					ItemType aux = h->elem[idx];
+					h->elem[idx] = h->elem[sc];
+					h->elem[sc] = aux;
+					break;
+				} else if (h->elem[getLeftChild(idx)].prior < h->elem[getRightChild(idx)].prior) {
+					sc = getRightChild(idx);
+				} else {
+					sc = getLeftChild(idx);
+				}
+				if (sc >= h->size) {
+					break;
+				}
+				ItemType aux = h->elem[idx];
+				h->elem[idx] = h->elem[sc];
+				h->elem[sc] = aux;
+				idx = sc;
+				if (idx >= h->size){
+					break;
+				}
+			} else {
+				break;
+			}
+		}
+		
+	}
 }
 
 void removeMax(APriQueue h) {
-	//TODO:
+	h->elem[0] = h->elem[h->size - 1];
+	--h->size;
+	siftDown(h, 0);
 }
 
 void freeQueue(APriQueue h){
-	// TODO:
+	free(h->elem);
+	free(h);
 }
 
 #endif
