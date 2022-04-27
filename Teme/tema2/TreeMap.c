@@ -359,37 +359,37 @@ void insert(TTree* tree, void* elem, void* info) {
 			}
 		}
 		avlFixUp(tree, new);
-		// List insert
-		// aux = tree->root;
-		// if (tree->compare(aux->elem, elem) == -1) {
-		// 	// Left side
-		// 	while (aux->next != NULL && tree->compare(aux->next->elem, elem) == -1) {
-		// 		aux =  aux->next;
-		// 	}
+		
+	// List insert
+		aux = tree->root;
+		if (tree->compare(aux->elem, elem) == -1) {
+			// Left side
+			while (aux->next != NULL && tree->compare(aux->next->elem, elem) == -1) {
+				aux =  aux->next;
+			}
 
-		// 	if (aux->next != NULL) {
-		// 		new->next = aux->next;
-		// 		aux->next->prev = new;
-		// 	}
-		// 	aux->next = new;
-		// 	new->prev = aux;
-		// } else if (tree->compare(aux->elem, elem) == 1){ 
-		// 	// Right side
-		// 	while (aux->prev != NULL && tree->compare(aux->prev->elem, elem) == 1) {
-		// 		aux =  aux->prev;
-		// 	}
+			if (aux->next != NULL) {
+				new->next = aux->next;
+				aux->next->prev = new;
+			}
+			aux->next = new;
+			new->prev = aux;
+		} else if (tree->compare(aux->elem, elem) == 1){ 
+			// Right side
+			while (aux->prev != NULL && tree->compare(aux->prev->elem, elem) == 1) {
+				aux =  aux->prev;
+			}
 
-		// 	if (aux->prev != NULL) {
-		// 		new->prev = aux->prev;
-		// 		aux->prev->next = new;
-		// 	}
-		// 	aux->prev = new;
-		// 	new->next = aux;
-		// }
+			if (aux->prev != NULL) {
+				new->prev = aux->prev;
+				aux->prev->next = new;
+			}
+			aux->prev = new;
+			new->next = aux;
+		}
 
 	}
 	tree->size++;
-	
 }
 
 
@@ -420,17 +420,40 @@ void destroyTreeNode(TTree *tree, TreeNode* node){
  *	  se va sterge ultimul nod din lista de duplicate
  */
 void delete(TTree* tree, void* elem) {
+	// TreeNode * to_delete = search(tree, tree->root, elem);
+	// if (to_delete) {
+	// 	if (to_delete->end == to_delete) {
+	// 		TreeNode* par = to_delete->parent;
+	// 		if ()
 
+	// 		// avlFixUp(tree, par);
+	// 		destroyTreeNode(tree, to_delete);
+	// 	} else {
+	// 		if (to_delete->end->next) {
+	// 			to_delete->end->next->prev = to_delete->end->prev;
+	// 		}
+	// 		to_delete->end->prev->next = to_delete->end->next;
+	// 		TreeNode* aux = to_delete->end->prev;
+	// 		destroyTreeNode(tree, to_delete->end);
+	// 		to_delete->end = aux;
+	// 	}
+	// }
+	// tree->size--;
+
+
+	// Idei :
+	// caz nici un copil 
+	// caz doar un copil
+	// caz ambii copii
+
+	// tine minte ca e lista dubla inlantuita
 }
 
 
 /* Eliberarea memoriei unui arbore
  */
 void destroyTree(TTree* tree){
-
-	/* Se poate folosi lista dublu intalntuita
-	 * pentru eliberarea memoriei
-	 */
 	if (tree == NULL || tree->root == NULL)
 		return;
+	
 }
