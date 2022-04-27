@@ -65,36 +65,18 @@ void insert(PriQueue *h, ItemType x) {
 }
 
 void siftDown(APriQueue h, int idx){
-	if (idx != h->size) {
-		while (h->elem[idx].prior < h->elem[getLeftChild(idx)].prior ) {
-			int sc = 0;
-			if (getLeftChild(idx) < h->size || getRightChild(idx) < h->size) {
-				if (getRightChild(idx) >= h->size) {
-					sc = getLeftChild(idx);
-					ItemType aux = h->elem[idx];
-					h->elem[idx] = h->elem[sc];
-					h->elem[sc] = aux;
-					break;
-				} else if (h->elem[getLeftChild(idx)].prior < h->elem[getRightChild(idx)].prior) {
-					sc = getRightChild(idx);
-				} else {
-					sc = getLeftChild(idx);
-				}
-				if (sc >= h->size) {
-					break;
-				}
-				ItemType aux = h->elem[idx];
-				h->elem[idx] = h->elem[sc];
-				h->elem[sc] = aux;
-				idx = sc;
-				if (idx >= h->size){
-					break;
-				}
-			} else {
-				break;
-			}
+	while (getLeftChild(idx) < h->size) {
+		int schimb = getLeftChild(idx);
+		if (schimb < h->size - 1 && h ->elem[schimb].prior < h->elem[getRightChild(idx)].prior) {
+			schimb = getRightChild(idx);
 		}
-		
+		if (h->elem[idx].prior > h->elem[schimb].prior) {
+			break;
+		}
+		ItemType aux = h->elem[idx];
+		h->elem[idx] = h->elem[schimb];
+		h->elem[schimb] = aux;
+		idx = schimb;
 	}
 }
 
