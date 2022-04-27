@@ -174,7 +174,7 @@ void avlRotateLeft(TTree* tree, TreeNode* x) {
 	if (tree == NULL || x == NULL) return;
 	TreeNode *y = x->right;
 	if (x == tree->root){
-		tree->root = y;
+		tree->root = x->right;
 	}
 	y->parent = x->parent;
 	if (y->parent != NULL) {
@@ -186,11 +186,13 @@ void avlRotateLeft(TTree* tree, TreeNode* x) {
 	}
 	x->parent = y;
 	x->right = y->left;
-	x->right->parent = x;
+	if (x->right) {
+		x->right->parent = x;
+	}
 	y->left = x;
 	
-	x->height = MAX(x->left == NULL? 0 : x->left->height, x->right == NULL? 0 : x->right->height) + 1;
-	y->height = MAX(y->left == NULL? 0 : y->left->height, y->right == NULL? 0 : y->right->height) + 1;
+	updateHeight(x);
+	updateHeight(y);
 	return;
 }
 
@@ -221,11 +223,12 @@ void avlRotateRight(TTree* tree, TreeNode* y) {
 	}
 	y->parent = x;
 	y->left = x->right;
-	y->left->parent = y;
+	if (y->left)
+		y->left->parent = y;
 	x->right = y;
 	
-	y->height = MAX(y->left == NULL? 0 : y->left->height, y->right == NULL? 0 : y->right->height) + 1;
-	x->height = MAX(x->left == NULL? 0 : x->left->height, x->right == NULL? 0 : x->right->height) + 1;
+	updateHeight(y);
+	updateHeight(x);
 	return;
 }
 
@@ -252,14 +255,23 @@ void avlFixUp(TTree* tree, TreeNode* y) {
 	while (aux != NULL) {
 		int balance = avlGetBalance(aux);
 		if (balance <= 1 && balance >= -1) {
-			aux->height = MAX(aux->left == NULL? 0 : aux->left->height,
-							 aux->right == NULL? 0 : aux->right->height) + 1;
+			updateHeight(aux);
 			aux = aux->parent;
-		} else if (balance < 1) {
-			avlRotateRight(tree, aux);
+		} else if (balance < -1) {
+			if (avlGetBalance(aux->right) < 0) {
+				avlRotateLeft(tree, aux);
+			} else {
+				avlRotateRight(tree, aux->right);
+				avlRotateLeft(tree, aux);
+			}
 			aux = aux->parent;
 		} else {
-			avlRotateLeft(tree, aux);
+			if (avlGetBalance(aux->left) > 0) {
+				avlRotateRight(tree, aux);
+			} else {
+				avlRotateLeft(tree, aux->left);
+				avlRotateRight(tree, aux);
+			}
 			aux = aux->parent;
 		}
 	}
@@ -304,7 +316,80 @@ TreeNode* createTreeNode(TTree *tree, void* value, void* info) {
  *
  */
 void insert(TTree* tree, void* elem, void* info) {
+	if (tree == NULL) {
+		return;
+	}
 	TreeNode * new = createTreeNode(tree, elem, info);
+	new->end = new;
+	if (tree->root == NULL) {
+		tree->root = new;
+		return;
+	}
+	TreeNode* aux = search(tree, tree->root, elem);
+	if (aux) {
+		// Last position
+		if (aux->end->next != NULL) {
+			new->next = aux->end->next;
+			new->next->prev = new;
+		}
+		aux->end->next = new;
+		new->prev = aux->end;
+		aux->end = new;
+	} else {
+		// Avl insert
+		aux = tree->root;
+		while (aux != NULL) {
+			if (tree->compare(aux->elem, elem) == 1) {
+				
+				if (aux->left != NULL){
+					aux = aux->left;
+				} else{
+					aux->left = new;
+					new->parent = aux;
+					break;
+				}
+			} else if (tree->compare(aux->elem, elem) == -1){ 				
+				if (aux->right != NULL) {
+					aux = aux->right;
+				} else {
+					aux->right = new;
+					new->parent = aux;
+					break;
+				}
+			}
+		}
+		avlFixUp(tree, new);
+		// List insert
+		// aux = tree->root;
+		// if (tree->compare(aux->elem, elem) == -1) {
+		// 	// Left side
+		// 	while (aux->next != NULL && tree->compare(aux->next->elem, elem) == -1) {
+		// 		aux =  aux->next;
+		// 	}
+
+		// 	if (aux->next != NULL) {
+		// 		new->next = aux->next;
+		// 		aux->next->prev = new;
+		// 	}
+		// 	aux->next = new;
+		// 	new->prev = aux;
+		// } else if (tree->compare(aux->elem, elem) == 1){ 
+		// 	// Right side
+		// 	while (aux->prev != NULL && tree->compare(aux->prev->elem, elem) == 1) {
+		// 		aux =  aux->prev;
+		// 	}
+
+		// 	if (aux->prev != NULL) {
+		// 		new->prev = aux->prev;
+		// 		aux->prev->next = new;
+		// 	}
+		// 	aux->prev = new;
+		// 	new->next = aux;
+		// }
+
+	}
+	tree->size++;
+	
 }
 
 
