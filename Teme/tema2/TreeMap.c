@@ -172,6 +172,26 @@ void updateHeight(TreeNode* x) {
  */
 void avlRotateLeft(TTree* tree, TreeNode* x) {
 	if (tree == NULL || x == NULL) return;
+	TreeNode *y = x->right;
+	if (x == tree->root){
+		tree->root = y;
+	}
+	y->parent = x->parent;
+	if (y->parent != NULL) {
+		if (y->parent->left == x) {
+			y->parent->left = y;
+		} else if (y->parent->right == x){
+			y->parent->right = y;
+		}
+	}
+	x->parent = y;
+	x->right = y->left;
+	x->right->parent = x;
+	y->left = x;
+	
+	x->height = MAX(x->left == NULL? 0 : x->left->height, x->right == NULL? 0 : x->right->height) + 1;
+	y->height = MAX(y->left == NULL? 0 : y->left->height, y->right == NULL? 0 : y->right->height) + 1;
+	return;
 }
 
 
@@ -187,6 +207,26 @@ void avlRotateLeft(TTree* tree, TreeNode* x) {
  */
 void avlRotateRight(TTree* tree, TreeNode* y) {
 	if (tree == NULL || y == NULL) return;
+	TreeNode *x = y->left;
+	if (y == tree->root){
+		tree->root = x;
+	}
+	x->parent = y->parent;
+	if (x->parent != NULL) {
+		if (x->parent->right == y) {
+			x->parent->right = x;
+		} else if (x->parent->left == y){
+			x->parent->left = x;
+		}
+	}
+	y->parent = x;
+	y->left = x->right;
+	y->left->parent = y;
+	x->right = y;
+	
+	y->height = MAX(y->left == NULL? 0 : y->left->height, y->right == NULL? 0 : y->right->height) + 1;
+	x->height = MAX(x->left == NULL? 0 : x->left->height, x->right == NULL? 0 : x->right->height) + 1;
+	return;
 }
 
 
@@ -194,7 +234,10 @@ void avlRotateRight(TTree* tree, TreeNode* y) {
  * (AVL balance factor)
 */
 int avlGetBalance(TreeNode *x) {
-	return 0;
+	if (x == NULL) {
+		return 0;
+	}
+	return (x->left == NULL? 0 : x->left->height) - (x->right == NULL? 0 : x->right->height);
 }
 
 
@@ -205,7 +248,22 @@ int avlGetBalance(TreeNode *x) {
  *
  */
 void avlFixUp(TTree* tree, TreeNode* y) {
-
+	TreeNode *aux = y;
+	while (aux != NULL) {
+		int balance = avlGetBalance(aux);
+		if (balance <= 1 && balance >= -1) {
+			aux->height = MAX(aux->left == NULL? 0 : aux->left->height,
+							 aux->right == NULL? 0 : aux->right->height) + 1;
+			aux = aux->parent;
+		} else if (balance < 1) {
+			avlRotateRight(tree, aux);
+			aux = aux->parent;
+		} else {
+			avlRotateLeft(tree, aux);
+			aux = aux->parent;
+		}
+	}
+	return;
 }
 
 
@@ -246,7 +304,7 @@ TreeNode* createTreeNode(TTree *tree, void* value, void* info) {
  *
  */
 void insert(TTree* tree, void* elem, void* info) {
-
+	TreeNode * new = createTreeNode(tree, elem, info);
 }
 
 
