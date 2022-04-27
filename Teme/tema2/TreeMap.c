@@ -16,7 +16,15 @@ TTree* createTree(void* (*createElement)(void*),
 				  void* (*createInfo)(void*),
 				  void (*destroyInfo)(void*),
 				  int compare(void*, void*)) {
-	return NULL;
+	TTree* tree = malloc(sizeof(* tree));
+	tree->compare = compare;
+	tree->createElement = createElement;
+	tree->createInfo = createInfo;
+	tree->destroyElement = destroyElement;
+	tree->destroyInfo = destroyInfo;
+	tree->root = NULL;
+	tree->size = 0;
+	return tree;
 }
 
 
@@ -25,7 +33,7 @@ TTree* createTree(void* (*createElement)(void*),
  * 		0 - in caz contrar
  */
 int isEmpty(TTree* tree) {
-	return 1;
+	return tree->root == NULL || tree == NULL;
 }
 
 
@@ -38,7 +46,19 @@ int isEmpty(TTree* tree) {
  * elem: elementul ce trebuie cautat
  */
 TreeNode* search(TTree* tree, TreeNode* x, void* elem) {
-	return NULL;
+	if (tree == NULL || x == NULL || tree->root == NULL) return NULL;
+	
+	TreeNode* aux = x;
+
+	while (aux != NULL && tree->compare(aux->elem, elem) != 0) {
+
+		if (tree->compare(aux->elem, elem) == -1) {
+			aux = aux->right;
+		} else {
+			aux = aux->left;
+		}
+	}
+	return aux;
 }
 
 
@@ -46,14 +66,26 @@ TreeNode* search(TTree* tree, TreeNode* x, void* elem) {
  * avand radacina in x
  */
 TreeNode* minimum(TreeNode* x) {
-	return NULL;
+	if (x == NULL) return NULL;
+
+	TreeNode *aux = x;
+	while (aux->left != NULL) {
+		aux = aux->left;
+	}
+	return aux;
 }
 
 /* Gaseste nodul cu elementul maxim dintr-un arbore
  * avand radacina in x
  */
 TreeNode* maximum(TreeNode* x) {
-	return NULL;
+	if (x == NULL) return NULL;
+
+	TreeNode *aux = x;
+	while (aux->right != NULL) {
+		aux = aux->right;
+	}
+	return aux;
 }
 
 
@@ -61,6 +93,26 @@ TreeNode* maximum(TreeNode* x) {
  * (succesorul in inordine)
  */
 TreeNode* successor(TreeNode* x) {
+	TreeNode * aux = x;
+	
+	if (aux == NULL) return NULL;
+
+	if (aux->right == NULL) {
+		if (aux->parent != NULL) {
+			if (aux->parent->left == aux) {
+				return aux->parent;
+			} else {
+				while (aux->parent != NULL && aux->parent->right == aux) {
+					aux = aux->parent;
+				}
+				return aux->parent;
+			}
+		} else {
+			return NULL;
+		}
+	} else {
+		return minimum(aux->right);
+	}
 	return NULL;
 }
 
@@ -69,6 +121,26 @@ TreeNode* successor(TreeNode* x) {
  * (predecesorul in inordine)
  */
 TreeNode* predecessor(TreeNode* x) {
+	TreeNode * aux = x;
+	
+	if (aux == NULL) return NULL;
+
+	if (aux->left == NULL) {
+		if (aux->parent != NULL) {
+			if (aux->parent->right == aux) {
+				return aux->parent;
+			} else {
+				while (aux->parent != NULL && aux->parent->left == aux) {
+					aux = aux->parent;
+				}
+				return aux->parent;
+			}
+		} else {
+			return NULL;
+		}
+	} else {
+		return maximum(aux->left);
+	}
 	return NULL;
 }
 
