@@ -419,26 +419,107 @@ void destroyTreeNode(TTree *tree, TreeNode* node){
  * 	! In cazul in care exista chei duplicate
  *	  se va sterge ultimul nod din lista de duplicate
  */
-void delete(TTree* tree, void* elem) {
-	// TreeNode * to_delete = search(tree, tree->root, elem);
-	// if (to_delete) {
-	// 	if (to_delete->end == to_delete) {
-	// 		TreeNode* par = to_delete->parent;
-	// 		if ()
+TreeNode* delete_avl(TTree* tree, TreeNode* root, void* elem) {
+	if (root == NULL) {
+		return root;
+	} else if (tree->compare(root->elem, elem) == 1) {				
+		root->left = delete_avl(tree, root->left, elem);
+		if (root->left)
+		root->left->parent = root->left;
+	} else if (tree->compare(root->elem, elem) == -1) {
+		root->right = delete_avl(tree, root->right, elem);
+		
+		if (root->right)
+		root->right->parent = root->right;
+	} else {
+		if (root->left != NULL && root->right != NULL) {
+			TreeNode *aux = root->next;
+			// if (root->next)
+			// 	root->next->prev = root->prev;
+			// if (root->prev)
+			// 	root->prev->next = root->next;
+			
+			tree->destroyElement(root->elem);
+			tree->destroyInfo(root->info);
+			root->elem = tree->createElement(aux->elem);
+			root->info = tree->createInfo(aux->info);
 
-	// 		// avlFixUp(tree, par);
-	// 		destroyTreeNode(tree, to_delete);
+			root->right = delete_avl(tree, root->right, aux->elem);
+		} else {
+			TreeNode *aux = root;
+			if (root->next)
+				root->next->prev = root->prev;
+			if (root->prev)
+				root->prev->next = root->next;
+
+
+
+			if (root->left != NULL) {
+				// root->left->parent = root->parent;		
+				root = root->left;	
+			} else if (root->right != NULL){
+				// root->right->parent = root->parent;
+				root = root->right;
+			} else {
+				root = NULL;
+			}
+			TreeNode* fix = aux->parent;
+			destroyTreeNode(tree, aux);
+			avlFixUp(tree, fix);
+		}
+	}
+	updateHeight(root);
+	return root;
+}
+
+void delete(TTree* tree, void* elem) {
+	TreeNode * to_delete = search(tree, tree->root, elem);
+	if (to_delete) {
+		if (to_delete->end == to_delete) {
+			TreeNode* par = to_delete->parent;
+			if (par)
+				delete_avl(tree, par, elem);
+			else 
+				delete_avl(tree, to_delete, elem);
+			// if (par->left)
+			// 	avlFixUp(tree, par->left);
+			// if (par->right)
+			// 	avlFixUp(tree, par->right);
+			avlFixUp(tree, minimum(tree->root));
+			avlFixUp(tree, maximum(tree->root));
+		} else {
+			if (to_delete->end->next) {
+				to_delete->end->next->prev = to_delete->end->prev;
+			}
+			to_delete->end->prev->next = to_delete->end->next;
+			TreeNode* aux = to_delete->end->prev;
+			destroyTreeNode(tree, to_delete->end);
+			to_delete->end = aux;
+		}
+		tree->size--;
+	}
+	
+	// if (root == NULL) {
+	// 	return NULL;
+	// } else if (root->value > value) {
+	// 	root->left = delete(root->left, value);
+	// } else if (root->value < value) {
+	// 	root->right = delete(root->right, value);
+	// } else {
+	// 	if (root->left != NULL && root->right != NULL) {
+	// 		Tree aux = minimum(root->right);
+	// 		root->value = aux->value;
+	// 		root->right = delete(root->right, aux->value);
 	// 	} else {
-	// 		if (to_delete->end->next) {
-	// 			to_delete->end->next->prev = to_delete->end->prev;
+	// 		Tree aux = root;
+	// 		if (root->left != NULL) {
+	// 			root = root->left;
+	// 		} else {
+	// 			root = root->right;
 	// 		}
-	// 		to_delete->end->prev->next = to_delete->end->next;
-	// 		TreeNode* aux = to_delete->end->prev;
-	// 		destroyTreeNode(tree, to_delete->end);
-	// 		to_delete->end = aux;
+	// 		free(aux);
 	// 	}
 	// }
-	// tree->size--;
 
 
 	// Idei :
