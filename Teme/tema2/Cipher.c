@@ -53,7 +53,6 @@ void buildTreeFromFile(char* fileName, TTree* tree) {
 	free(all);
 	free(s);
 	fclose(f);
-	// printf("\n");
 }
 
 
@@ -98,7 +97,27 @@ void printKey(char *fileName, Range *key) {
  * de duplicate)
  */
 Range* inorderKeyQuery(TTree* tree) {
-	return NULL;
+	TreeNode * aux = minimum(tree->root);
+	Range *key = malloc(sizeof(*key));
+	key->capacity = 1;
+	key->index = malloc(key->capacity * sizeof(int));
+	key->size = 0;
+
+	while (aux != NULL) {
+
+		if (key->size == key->capacity) {
+			key->index = realloc(key->index, key->capacity * 2 *sizeof(int));
+			key->capacity *= 2;
+		}
+
+		int i = *((int*)aux->info) % 26;
+		aux = aux->next;
+		key->index[key->size] = i;
+		key->size++;
+
+	}
+
+	return key;
 }
 
 
@@ -109,7 +128,71 @@ Range* inorderKeyQuery(TTree* tree) {
  * parcurgerii in inordine a arborelui)
  */
 Range* levelKeyQuery(TTree* tree) {
-	return NULL;
+	Range *key = malloc(sizeof(*key));
+	key->capacity = 1;
+	key->index = malloc(key->capacity * sizeof(int));
+	key->size = 0;
+
+	TreeNode * aux = minimum(tree->root);
+	TreeNode * node_freq = NULL;
+	int max = 0;
+	while (aux != NULL) {
+		int freq = 1;
+		TreeNode *tmp = aux;
+		while (tmp != aux->end) {
+			freq++;
+			tmp = tmp->next;
+		}
+
+		if (freq > max) {
+			max = freq;
+			node_freq = aux;
+		}
+		aux = aux->end->next;
+	}
+
+	aux = node_freq;
+	int node_level = 0;
+	while (aux != NULL) {
+		aux = aux->parent;
+		node_level++;
+	}
+
+	aux = minimum(tree->root);
+	while (aux != NULL) {
+		int level = 0;
+		TreeNode* tmp = aux;
+		while (tmp != NULL) {
+			tmp = tmp->parent;
+			level++;
+		}
+		if (level == node_level) {
+			tmp = aux;
+			if (tmp == aux->end) {
+				if (key->size == key->capacity) {
+					key->index = realloc(key->index, key->capacity * 2 *sizeof(int));
+					key->capacity *= 2;
+				}
+
+				key->index[key->size] = *((int*)aux->info);
+				key->size++;
+			} else {
+				while (tmp != aux->end->next) {
+					if (key->size == key->capacity) {
+						key->index = realloc(key->index, key->capacity * 2 *sizeof(int));
+						key->capacity *= 2;
+					}
+
+					key->index[key->size] = *((int*)tmp->info);
+					key->size++;
+					tmp = tmp->next;
+				}
+			}
+		}
+		aux = aux->end->next;
+	}
+	
+	return key;
 }
 
 
@@ -117,7 +200,25 @@ Range* levelKeyQuery(TTree* tree) {
  * domeniu de valori specificat
  */
 Range* rangeKeyQuery(TTree* tree, char* q, char* p) {
-	return NULL;
+	Range *key = malloc(sizeof(*key));
+	key->capacity = 1;
+	key->index = malloc(key->capacity * sizeof(int));
+	key->size = 0;
+
+	TreeNode *aux = minimum(tree->root);
+	while (aux != NULL) {
+		if (key->size == key->capacity) {
+			key->index = realloc(key->index, key->capacity * 2 *sizeof(int));
+			key->capacity *= 2;
+		}
+		if (tree->compare(aux->elem, q) >= 0 && tree->compare(aux->elem, p) <= 0) {
+			key->index[key->size] = *((int*)aux->info);
+			key->size++;
+		}
+		aux = aux->next;
+	}
+
+	return key;
 }
 
 

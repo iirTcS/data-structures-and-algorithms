@@ -264,6 +264,7 @@ void avlFixUp(TTree* tree, TreeNode* y) {
 				avlRotateRight(tree, aux->right);
 				avlRotateLeft(tree, aux);
 			}
+			updateHeight(aux);
 			aux = aux->parent;
 		} else {
 			if (avlGetBalance(aux->left) >= 0) {
@@ -272,6 +273,7 @@ void avlFixUp(TTree* tree, TreeNode* y) {
 				avlRotateLeft(tree, aux->left);
 				avlRotateRight(tree, aux);
 			}
+			updateHeight(aux);
 			aux = aux->parent;
 		}
 	}
@@ -330,15 +332,18 @@ void insert(TTree* tree, void* elem, void* info) {
 	if (tree == NULL) {
 		return;
 	}
+// Node creation
 	TreeNode * new = createTreeNode(tree, elem, info);
 	new->end = new;
 	if (tree->root == NULL) {
 		tree->root = new;
 		return;
 	}
+// Search the node
 	TreeNode* aux = search(tree, tree->root, elem);
+//Case Node already exists 
 	if (aux) {
-		// Last position
+	// Last position
 		if (aux->end->next != NULL) {
 			new->next = aux->end->next;
 			new->next->prev = new;
@@ -347,8 +352,9 @@ void insert(TTree* tree, void* elem, void* info) {
 		new->prev = aux->end;
 		aux->end = new;
 		aux->end->end = NULL;
+// Case new node in the tree
 	} else {
-		// Avl insert
+	// Avl insert
 		aux = tree->root;
 		while (aux != NULL) {
 			if (tree->compare(aux->elem, elem) == 1) {
@@ -398,6 +404,7 @@ void insert(TTree* tree, void* elem, void* info) {
 			aux->prev = new;
 			new->next = aux;	
 		}
+	// Fix the AVL
 		avlFixUp(tree, new);
 
 	}
