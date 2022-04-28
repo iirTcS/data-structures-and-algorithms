@@ -659,7 +659,7 @@ void test_build_tree(TTree **tree) {
 	} else {
 		print_dot((*tree)->root, f, 2);
 		fclose(f);
-		// system("dot outputs/simple_key_tree.dot | neato -n -Tpng -o outputs/simple_key_tree.png");
+		system("dot outputs/simple_key_tree.dot | neato -n -Tpng -o outputs/simple_key_tree.png");
 	}
 
 	destroyTree(*tree);
@@ -683,8 +683,15 @@ void test_build_tree(TTree **tree) {
 	} else {
 		print_dot((*tree)->root, f, 2);
 		fclose(f);
-		// system("dot outputs/key_tree.dot | neato -n -Tpng -o outputs/key_tree.png");
+		system("dot outputs/key_tree.dot | neato -n -Tpng -o outputs/key_tree.png");
 	}
+	// printf("%s\n",((char*)(*tree)->root->next->elem));
+	// TreeNode* aux = minimum((*tree)->root);
+	// while (aux != NULL) {
+	// 	printf("%s\n", (char*)aux->elem);
+	// 	aux = aux->next;
+	// }
+	// printf("\n");
 }
 
 
@@ -757,18 +764,18 @@ int main() {
 		compareStr);
 
 	test_build_tree(&dict);
-	test_inorder_key(&dict);
-	test_level_key(&dict);
-	test_range_key(&dict);
+	// test_inorder_key(&dict);
+	// test_level_key(&dict);
+	// test_range_key(&dict);
 
 	destroyTree(dict);
 
 	return 0;
 }
 
-	// TreeNode* aux = maximum(tree2->root);
+	// TreeNode* aux = minimum((*tree)->root);
 	// while (aux != NULL) {
-	// 	printf("%ld ", *((long *)aux->elem));
-	// 	aux = aux->prev;
+	// 	printf("%p : %ld -- end %p\n", aux,*((long *)aux->elem), aux->end);
+	// 	aux = aux->next;
 	// }
 	// printf("\n");

@@ -346,6 +346,7 @@ void insert(TTree* tree, void* elem, void* info) {
 		aux->end->next = new;
 		new->prev = aux->end;
 		aux->end = new;
+		aux->end->end = NULL;
 	} else {
 		// Avl insert
 		aux = tree->root;
@@ -369,8 +370,7 @@ void insert(TTree* tree, void* elem, void* info) {
 				}
 			}
 		}
-		avlFixUp(tree, new);
-		
+
 	// List insert
 		aux = tree->root;
 		if (tree->compare(aux->elem, elem) == -1) {
@@ -381,7 +381,7 @@ void insert(TTree* tree, void* elem, void* info) {
 
 			if (aux->next != NULL) {
 				new->next = aux->next;
-				aux->next->prev = new;
+				new->next->prev = new;
 			}
 			aux->next = new;
 			new->prev = aux;
@@ -396,8 +396,9 @@ void insert(TTree* tree, void* elem, void* info) {
 				aux->prev->next = new;
 			}
 			aux->prev = new;
-			new->next = aux;
+			new->next = aux;	
 		}
+		avlFixUp(tree, new);
 
 	}
 	tree->size++;

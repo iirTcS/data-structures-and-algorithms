@@ -26,6 +26,34 @@ void buildTreeFromFile(char* fileName, TTree* tree) {
 	// Verificarea argumentelor
 	if(fileName == NULL || tree == NULL)
 		return;
+	FILE *f = fopen(fileName, "r");
+	char *s = malloc(256);
+	int j = 0, *all = malloc(sizeof(int));
+	*all = 0;
+	while(fgets(s, 256, f)) {
+		char* word = malloc(256);
+		
+		for (int i = 0; i < strlen(s) + 1; i++) {
+			if ((s[i] >= 65 && s[i] <= 90) || (s[i] >= 97 && s[i] <= 122)) {
+				word[j] = s[i];
+				j++;
+			} else if (j != 0) {
+				word[j] = '\0';
+				char *to_send = calloc(sizeof(char), 6);
+				strncpy(to_send, word, 5);
+				insert(tree, to_send, all);
+				*all += j;
+				j = 0;
+				free(to_send);
+			}
+
+		}
+		free(word);
+	}
+	free(all);
+	free(s);
+	fclose(f);
+	// printf("\n");
 }
 
 
