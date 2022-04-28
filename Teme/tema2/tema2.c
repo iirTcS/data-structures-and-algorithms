@@ -404,7 +404,6 @@ void test_delete(TTree** tree) {
 		return;
 	}
 
-
 	// Test single node delete no child
 	long value = 6;
 	delete((*tree),&value);
@@ -418,7 +417,6 @@ void test_delete(TTree** tree) {
 	ASSERT(f, *((long*)(*tree)->root->right->left->elem) == 5l, "Delete-04");
 	ASSERT(f, *((long*)(*tree)->root->right->right->elem) == 8l, "Delete-05");
 
-	
 	// Test splice successor
 	value = 3;
 	delete((*tree),&value);
@@ -427,56 +425,36 @@ void test_delete(TTree** tree) {
 	ASSERT(f, *((long*)(*tree)->root->right->right->elem) == 8l, "Delete-08");
 	ASSERT(f, (*tree)->root->right->left == NULL, "Delete-09");
 
-	// printf("%ld\n",*((long*)(*tree)->root->left->parent->elem));
-	// // printf("%p\n",(*tree)->root->right->right->right);
-
-
 	// Test delete node with 1 child
 	value = 7;
 	delete((*tree),&value);
 	ASSERT(f, *((long*)(*tree)->root->right->elem) == 8l, "Delete-10");
 	ASSERT(f, (*tree)->root->right->height == 1, "Delete-11");
 
-	TreeNode*aux = minimum((*tree)->root);
-	while (aux != NULL) {
-		printf("%ld ", *((long *)aux->elem));
-		aux = aux->next;
-	}
-	printf("\n");
-
-
-	// // Test right re-balance
-	// value = 8;
-	// delete((*tree),&value);
-	// ASSERT(f, *((long*)(*tree)->root->elem) == 1l, "Delete-12");
-	// ASSERT(f, *((long*)(*tree)->root->left->elem) == 0l, "Delete-13");
-	// ASSERT(f, *((long*)(*tree)->root->right->elem) == 5l, "Delete-14");
-	// ASSERT(f, *((long*)(*tree)->root->right->left->elem) == 2l, "Delete-15");
-	
+	// Test right re-balance
+	value = 8;
+	delete((*tree),&value);
+	ASSERT(f, *((long*)(*tree)->root->elem) == 1l, "Delete-12");
+	ASSERT(f, *((long*)(*tree)->root->left->elem) == 0l, "Delete-13");
+	ASSERT(f, *((long*)(*tree)->root->right->elem) == 5l, "Delete-14");
+	ASSERT(f, *((long*)(*tree)->root->right->left->elem) == 2l, "Delete-15");
 
 	//Test zig-zag re-balance
 	value = 0;
-	// delete((*tree),&value);
-	// ASSERT(f, *((long*)(*tree)->root->elem) == 2l, "Delete-16");
-	// ASSERT(f, *((long*)(*tree)->root->left->elem) == 1l, "Delete-17");
-	// ASSERT(f, *((long*)(*tree)->root->right->elem) == 5l, "Delete-18");
+	delete((*tree),&value);
+	ASSERT(f, *((long*)(*tree)->root->elem) == 2l, "Delete-16");
+	ASSERT(f, *((long*)(*tree)->root->left->elem) == 1l, "Delete-17");
+	ASSERT(f, *((long*)(*tree)->root->right->elem) == 5l, "Delete-18");
 
 	// Test empty tree
-	// value = 2;
-	// delete((*tree),&value);
-	// value = 1;
-	// delete((*tree),&value);
-	// value = 5;
-	// delete((*tree),&value);
-	// ASSERT(f, (*tree)->root == NULL, "Delete-19");
-	// ASSERT(f, (*tree)->size == 0, "Delete-20");
-
-	// 	TreeNode *aux = minimum((*tree)->root);
-	// while (aux != NULL) {
-	// 	printf("%ld  ", *((long*)aux->elem));
-	// 	aux = aux->next;
-	// }
-	// 	printf("\n 1root %ld\n\n", *((long*)(*tree)->root->elem));
+	value = 2;
+	delete((*tree),&value);
+	value = 1;
+	delete((*tree),&value);
+	value = 5;
+	delete((*tree),&value);
+	ASSERT(f, (*tree)->root == NULL, "Delete-19");
+	ASSERT(f, (*tree)->size == 0, "Delete-20");
 
 	fprintf(f, "\nAll tests for Delete passed!\n");
 	fclose(f);
@@ -766,24 +744,31 @@ int main() {
 	test_rotations(&tree1);
 	test_insert(&tree2);
 	test_delete(&tree2);
-	// test_list_insert(&tree2);
-	// test_list_delete(&tree2);
-	// test_free(&tree1, &tree2);
+	test_list_insert(&tree2);
+	test_list_delete(&tree2);
+	test_free(&tree1, &tree2);
 
-	// TTree *dict = NULL;
-	// dict = createTree(
-	// 	createStrElement,
-	// 	destroyStrElement,
-	// 	createIndexInfo,
-	// 	destroyIndexInfo,
-	// 	compareStr);
+	TTree *dict = NULL;
+	dict = createTree(
+		createStrElement,
+		destroyStrElement,
+		createIndexInfo,
+		destroyIndexInfo,
+		compareStr);
 
-	// test_build_tree(&dict);
-	// test_inorder_key(&dict);
-	// test_level_key(&dict);
-	// test_range_key(&dict);
+	test_build_tree(&dict);
+	test_inorder_key(&dict);
+	test_level_key(&dict);
+	test_range_key(&dict);
 
-	// destroyTree(dict);
+	destroyTree(dict);
 
 	return 0;
 }
+
+	// TreeNode* aux = maximum(tree2->root);
+	// while (aux != NULL) {
+	// 	printf("%ld ", *((long *)aux->elem));
+	// 	aux = aux->prev;
+	// }
+	// printf("\n");

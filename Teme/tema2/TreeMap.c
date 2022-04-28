@@ -33,7 +33,7 @@ TTree* createTree(void* (*createElement)(void*),
  * 		0 - in caz contrar
  */
 int isEmpty(TTree* tree) {
-	return tree->root == NULL || tree == NULL;
+	return tree == NULL || tree->root == NULL;
 }
 
 
@@ -258,7 +258,7 @@ void avlFixUp(TTree* tree, TreeNode* y) {
 			updateHeight(aux);
 			aux = aux->parent;
 		} else if (balance < -1) {
-			if (avlGetBalance(aux->right) < 0) {
+			if (avlGetBalance(aux->right) <= 0) {
 				avlRotateLeft(tree, aux);
 			} else {
 				avlRotateRight(tree, aux->right);
@@ -266,7 +266,7 @@ void avlFixUp(TTree* tree, TreeNode* y) {
 			}
 			aux = aux->parent;
 		} else {
-			if (avlGetBalance(aux->left) > 0) {
+			if (avlGetBalance(aux->left) >= 0) {
 				avlRotateRight(tree, aux);
 			} else {
 				avlRotateLeft(tree, aux->left);
@@ -315,6 +315,17 @@ TreeNode* createTreeNode(TTree *tree, void* value, void* info) {
  * ! In urma adaugarii arborele trebuie sa fie echilibrat
  *
  */
+
+void fix(TTree *tree, TreeNode* root) {
+	if (root == NULL) {
+		return;
+	}
+	avlFixUp(tree,root);
+	fix(tree, root->left);
+	fix(tree, root->right);
+	return;
+}
+
 void insert(TTree* tree, void* elem, void* info) {
 	if (tree == NULL) {
 		return;
@@ -441,11 +452,12 @@ TreeNode* delete_avl(TTree* tree, TreeNode* root, void* elem) {
 			root->right = delete_avl(tree, root->right, aux->elem);
 		} else {
 			TreeNode *aux = root;
-			if (root->next)
+			if (root->next) {
 				root->next->prev = root->prev;
-			if (root->prev)
+			}
+			if (root->prev) {
 				root->prev->next = root->next;
-
+			}
 
 			if (root->left != NULL) {
 				root->left->parent = root->parent;
@@ -456,9 +468,7 @@ TreeNode* delete_avl(TTree* tree, TreeNode* root, void* elem) {
 			} else {
 				root = NULL;
 			}
-			TreeNode* fix = aux->parent;
 			destroyTreeNode(tree, aux);
-			avlFixUp(tree, fix);
 		}
 	}
 
@@ -466,20 +476,23 @@ TreeNode* delete_avl(TTree* tree, TreeNode* root, void* elem) {
 	return root;
 }
 
+
 void delete(TTree* tree, void* elem) {
 	TreeNode * to_delete = search(tree, tree->root, elem);
 	if (to_delete) {
 		if (to_delete->end == to_delete) {
+			if (to_delete == tree->root && to_delete->right == NULL && to_delete->left == NULL) {
+				destroyTreeNode(tree, tree->root);
+				tree->root = NULL;
+				return;
+			}
+
 			TreeNode* par = to_delete->parent;
 			if (par)
-				delete_avl(tree, par, elem);
+				par = delete_avl(tree, par, elem);
 			else 
-				delete_avl(tree, to_delete, elem);
-
-			avlFixUp(tree, minimum(tree->root));
-
-			avlFixUp(tree, maximum(tree->root));
-
+				to_delete = delete_avl(tree, to_delete, elem);
+			fix(tree, tree->root);
 		} else {
 			if (to_delete->end->next) {
 				to_delete->end->next->prev = to_delete->end->prev;
@@ -488,7 +501,7 @@ void delete(TTree* tree, void* elem) {
 			TreeNode* aux = to_delete->end->prev;
 			destroyTreeNode(tree, to_delete->end);
 			to_delete->end = aux;
-		}
+		}			
 		tree->size--;
 	}
 }
@@ -497,7 +510,13 @@ void delete(TTree* tree, void* elem) {
 /* Eliberarea memoriei unui arbore
  */
 void destroyTree(TTree* tree){
-	if (tree == NULL || tree->root == NULL)
+	if (tree == NULL)
 		return;
-	
+	TreeNode* aux = minimum(tree->root);
+	while (aux != NULL) {
+		TreeNode* tmp =aux;
+		aux = aux->next;
+		destroyTreeNode(tree, tmp);
+	}
+	free(tree);
 }
