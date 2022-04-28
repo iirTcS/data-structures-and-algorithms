@@ -424,20 +424,14 @@ TreeNode* delete_avl(TTree* tree, TreeNode* root, void* elem) {
 		return root;
 	} else if (tree->compare(root->elem, elem) == 1) {				
 		root->left = delete_avl(tree, root->left, elem);
-		if (root->left)
-		root->left->parent = root->left;
+
 	} else if (tree->compare(root->elem, elem) == -1) {
+
 		root->right = delete_avl(tree, root->right, elem);
-		
-		if (root->right)
-		root->right->parent = root->right;
+	
 	} else {
 		if (root->left != NULL && root->right != NULL) {
 			TreeNode *aux = root->next;
-			// if (root->next)
-			// 	root->next->prev = root->prev;
-			// if (root->prev)
-			// 	root->prev->next = root->next;
 			
 			tree->destroyElement(root->elem);
 			tree->destroyInfo(root->info);
@@ -453,12 +447,11 @@ TreeNode* delete_avl(TTree* tree, TreeNode* root, void* elem) {
 				root->prev->next = root->next;
 
 
-
 			if (root->left != NULL) {
-				// root->left->parent = root->parent;		
-				root = root->left;	
+				root->left->parent = root->parent;
+				root->parent->left = root->left;
 			} else if (root->right != NULL){
-				// root->right->parent = root->parent;
+				root->right->parent = root->parent;
 				root = root->right;
 			} else {
 				root = NULL;
@@ -468,6 +461,7 @@ TreeNode* delete_avl(TTree* tree, TreeNode* root, void* elem) {
 			avlFixUp(tree, fix);
 		}
 	}
+
 	updateHeight(root);
 	return root;
 }
@@ -481,12 +475,11 @@ void delete(TTree* tree, void* elem) {
 				delete_avl(tree, par, elem);
 			else 
 				delete_avl(tree, to_delete, elem);
-			// if (par->left)
-			// 	avlFixUp(tree, par->left);
-			// if (par->right)
-			// 	avlFixUp(tree, par->right);
+
 			avlFixUp(tree, minimum(tree->root));
+
 			avlFixUp(tree, maximum(tree->root));
+
 		} else {
 			if (to_delete->end->next) {
 				to_delete->end->next->prev = to_delete->end->prev;
@@ -498,36 +491,6 @@ void delete(TTree* tree, void* elem) {
 		}
 		tree->size--;
 	}
-	
-	// if (root == NULL) {
-	// 	return NULL;
-	// } else if (root->value > value) {
-	// 	root->left = delete(root->left, value);
-	// } else if (root->value < value) {
-	// 	root->right = delete(root->right, value);
-	// } else {
-	// 	if (root->left != NULL && root->right != NULL) {
-	// 		Tree aux = minimum(root->right);
-	// 		root->value = aux->value;
-	// 		root->right = delete(root->right, aux->value);
-	// 	} else {
-	// 		Tree aux = root;
-	// 		if (root->left != NULL) {
-	// 			root = root->left;
-	// 		} else {
-	// 			root = root->right;
-	// 		}
-	// 		free(aux);
-	// 	}
-	// }
-
-
-	// Idei :
-	// caz nici un copil 
-	// caz doar un copil
-	// caz ambii copii
-
-	// tine minte ca e lista dubla inlantuita
 }
 
 

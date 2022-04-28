@@ -427,12 +427,8 @@ void test_delete(TTree** tree) {
 	ASSERT(f, *((long*)(*tree)->root->right->right->elem) == 8l, "Delete-08");
 	ASSERT(f, (*tree)->root->right->left == NULL, "Delete-09");
 
-				TreeNode*aux = minimum((*tree)->root);
-	while (aux != NULL) {
-		printf("%ld ", *((long *)aux->elem));
-		aux = aux->next;
-	}
-	printf("\n");
+	// printf("%ld\n",*((long*)(*tree)->root->left->parent->elem));
+	// // printf("%p\n",(*tree)->root->right->right->right);
 
 
 	// Test delete node with 1 child
@@ -441,7 +437,12 @@ void test_delete(TTree** tree) {
 	ASSERT(f, *((long*)(*tree)->root->right->elem) == 8l, "Delete-10");
 	ASSERT(f, (*tree)->root->right->height == 1, "Delete-11");
 
-
+	TreeNode*aux = minimum((*tree)->root);
+	while (aux != NULL) {
+		printf("%ld ", *((long *)aux->elem));
+		aux = aux->next;
+	}
+	printf("\n");
 
 
 	// // Test right re-balance
@@ -765,24 +766,24 @@ int main() {
 	test_rotations(&tree1);
 	test_insert(&tree2);
 	test_delete(&tree2);
-	test_list_insert(&tree2);
-	test_list_delete(&tree2);
-	test_free(&tree1, &tree2);
+	// test_list_insert(&tree2);
+	// test_list_delete(&tree2);
+	// test_free(&tree1, &tree2);
 
-	TTree *dict = NULL;
-	dict = createTree(
-		createStrElement,
-		destroyStrElement,
-		createIndexInfo,
-		destroyIndexInfo,
-		compareStr);
+	// TTree *dict = NULL;
+	// dict = createTree(
+	// 	createStrElement,
+	// 	destroyStrElement,
+	// 	createIndexInfo,
+	// 	destroyIndexInfo,
+	// 	compareStr);
 
-	test_build_tree(&dict);
-	test_inorder_key(&dict);
-	test_level_key(&dict);
-	test_range_key(&dict);
+	// test_build_tree(&dict);
+	// test_inorder_key(&dict);
+	// test_level_key(&dict);
+	// test_range_key(&dict);
 
-	destroyTree(dict);
+	// destroyTree(dict);
 
 	return 0;
 }
