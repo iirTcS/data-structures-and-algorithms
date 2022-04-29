@@ -6,6 +6,7 @@
 
 #define MAX(a, b) (((a) >= (b))?(a):(b))
 
+TreeNode* delete_avl(TTree* tree, TreeNode* root, void* elem);
 
 /* Creeaza un arbore cu o serie de metode asociate
  *
@@ -51,9 +52,10 @@ TreeNode* search(TTree* tree, TreeNode* x, void* elem) {
 	TreeNode* aux = x;
 
 	while (aux != NULL && tree->compare(aux->elem, elem) != 0) {
-
+	// Right Side
 		if (tree->compare(aux->elem, elem) == -1) {
 			aux = aux->right;
+	// Left Side
 		} else {
 			aux = aux->left;
 		}
@@ -66,9 +68,11 @@ TreeNode* search(TTree* tree, TreeNode* x, void* elem) {
  * avand radacina in x
  */
 TreeNode* minimum(TreeNode* x) {
+	// Base case
 	if (x == NULL) return NULL;
 
 	TreeNode *aux = x;
+	// Travels to the most left node
 	while (aux->left != NULL) {
 		aux = aux->left;
 	}
@@ -79,9 +83,11 @@ TreeNode* minimum(TreeNode* x) {
  * avand radacina in x
  */
 TreeNode* maximum(TreeNode* x) {
+	// Base case
 	if (x == NULL) return NULL;
 
 	TreeNode *aux = x;
+	// Travels to the most right
 	while (aux->right != NULL) {
 		aux = aux->right;
 	}
@@ -94,25 +100,29 @@ TreeNode* maximum(TreeNode* x) {
  */
 TreeNode* successor(TreeNode* x) {
 	TreeNode * aux = x;
-	
+	// Base case
 	if (aux == NULL) return NULL;
 
-	if (aux->right == NULL) {
-		if (aux->parent != NULL) {
+	// Case the succesor is up the tree
+	if (aux->right == NULL && aux->parent != NULL) {
+		
+			// Case aux is left node
 			if (aux->parent->left == aux) {
 				return aux->parent;
+
+			// Case aux is right node
 			} else {
 				while (aux->parent != NULL && aux->parent->right == aux) {
 					aux = aux->parent;
 				}
 				return aux->parent;
 			}
-		} else {
-			return NULL;
-		}
+	// Case successor is down the tree
 	} else {
 		return minimum(aux->right);
 	}
+
+	// Rest of the cases
 	return NULL;
 }
 
@@ -122,25 +132,29 @@ TreeNode* successor(TreeNode* x) {
  */
 TreeNode* predecessor(TreeNode* x) {
 	TreeNode * aux = x;
-	
+
+	// Base case
 	if (aux == NULL) return NULL;
 
-	if (aux->left == NULL) {
-		if (aux->parent != NULL) {
+	// Case the predecessor is up the tree
+	if (aux->left == NULL && aux->parent != NULL) {
+			
+			// Case aux is right node
 			if (aux->parent->right == aux) {
 				return aux->parent;
+			// Case aux is left node
 			} else {
 				while (aux->parent != NULL && aux->parent->left == aux) {
 					aux = aux->parent;
 				}
 				return aux->parent;
 			}
-		} else {
-			return NULL;
-		}
+	// Case the predecessor is down the tree
 	} else {
 		return maximum(aux->left);
 	}
+
+	// Rest of the cases.
 	return NULL;
 }
 
@@ -171,26 +185,35 @@ void updateHeight(TreeNode* x) {
  *    b   c          a   b
  */
 void avlRotateLeft(TTree* tree, TreeNode* x) {
+	// Base case
 	if (tree == NULL || x == NULL) return;
 	TreeNode *y = x->right;
+	
+	// Case x is the root
 	if (x == tree->root){
 		tree->root = x->right;
 	}
 	y->parent = x->parent;
+	
+	// Case x is in the middle 
 	if (y->parent != NULL) {
+		// Case x is the left node
 		if (y->parent->left == x) {
 			y->parent->left = y;
+		// Case x is the right node
 		} else if (y->parent->right == x){
 			y->parent->right = y;
 		}
 	}
 	x->parent = y;
 	x->right = y->left;
+	// Case x->right has children
 	if (x->right) {
 		x->right->parent = x;
 	}
 	y->left = x;
 	
+	// Update the height of the switched nodes
 	updateHeight(x);
 	updateHeight(y);
 	return;
@@ -208,25 +231,34 @@ void avlRotateLeft(TTree* tree, TreeNode* x) {
  *  a   b                b   c
  */
 void avlRotateRight(TTree* tree, TreeNode* y) {
+	// Base case
 	if (tree == NULL || y == NULL) return;
+	
 	TreeNode *x = y->left;
+	// Case y is the root
 	if (y == tree->root){
 		tree->root = x;
 	}
+	// Case y is in the middle 
 	x->parent = y->parent;
 	if (x->parent != NULL) {
+		// Case y is the right node
 		if (x->parent->right == y) {
 			x->parent->right = x;
+		// Case y is the left node
 		} else if (x->parent->left == y){
 			x->parent->left = x;
 		}
 	}
 	y->parent = x;
 	y->left = x->right;
+	
+	// Case y->left has children
 	if (y->left)
 		y->left->parent = y;
 	x->right = y;
 	
+	// Update the height of the switched nodes
 	updateHeight(y);
 	updateHeight(x);
 	return;
@@ -240,6 +272,7 @@ int avlGetBalance(TreeNode *x) {
 	if (x == NULL) {
 		return 0;
 	}
+	// Check for NULL = 0
 	return (x->left == NULL? 0 : x->left->height) - (x->right == NULL? 0 : x->right->height);
 }
 
@@ -254,12 +287,17 @@ void avlFixUp(TTree* tree, TreeNode* y) {
 	TreeNode *aux = y;
 	while (aux != NULL) {
 		int balance = avlGetBalance(aux);
+		// Case doesnt needs to rotate.
 		if (balance <= 1 && balance >= -1) {
 			updateHeight(aux);
 			aux = aux->parent;
+		
 		} else if (balance < -1) {
+			// Case Left rotation
 			if (avlGetBalance(aux->right) <= 0) {
 				avlRotateLeft(tree, aux);
+			
+			// Case Right - Left rotation
 			} else {
 				avlRotateRight(tree, aux->right);
 				avlRotateLeft(tree, aux);
@@ -267,8 +305,12 @@ void avlFixUp(TTree* tree, TreeNode* y) {
 			updateHeight(aux);
 			aux = aux->parent;
 		} else {
+
+			// Case Right rotation
 			if (avlGetBalance(aux->left) >= 0) {
 				avlRotateRight(tree, aux);
+			
+			// Case Left - Rotation rotation
 			} else {
 				avlRotateLeft(tree, aux->left);
 				avlRotateRight(tree, aux);
@@ -317,17 +359,6 @@ TreeNode* createTreeNode(TTree *tree, void* value, void* info) {
  * ! In urma adaugarii arborele trebuie sa fie echilibrat
  *
  */
-
-void fix(TTree *tree, TreeNode* root) {
-	if (root == NULL) {
-		return;
-	}
-	avlFixUp(tree,root);
-	fix(tree, root->left);
-	fix(tree, root->right);
-	return;
-}
-
 void insert(TTree* tree, void* elem, void* info) {
 	if (tree == NULL) {
 		return;
@@ -438,6 +469,42 @@ void destroyTreeNode(TTree *tree, TreeNode* node){
  * 	! In cazul in care exista chei duplicate
  *	  se va sterge ultimul nod din lista de duplicate
  */
+void delete(TTree* tree, void* elem) {
+	TreeNode * to_delete = search(tree, tree->root, elem);
+
+// Check if the node exists in the tree
+	if (to_delete) {
+
+	// Case AVL delete
+		if (to_delete->end == to_delete) {
+		// Case only root left
+			if (to_delete == tree->root && to_delete->right == NULL && to_delete->left == NULL) {
+				destroyTreeNode(tree, tree->root);
+				tree->root = NULL;
+				return;
+			}
+
+			TreeNode* father = to_delete->parent;
+			if (father) {
+				father = delete_avl(tree, father, elem);
+			}
+			else {
+				to_delete = delete_avl(tree, to_delete, elem);
+			}
+			avlFixUp(tree, father);
+		} else {
+			if (to_delete->end->next) {
+				to_delete->end->next->prev = to_delete->end->prev;
+			}
+			to_delete->end->prev->next = to_delete->end->next;
+			TreeNode* aux = to_delete->end->prev;
+			destroyTreeNode(tree, to_delete->end);
+			to_delete->end = aux;
+		}			
+		tree->size--;
+	}
+}
+
 TreeNode* delete_avl(TTree* tree, TreeNode* root, void* elem) {
 	if (root == NULL) {
 		return root;
@@ -483,37 +550,6 @@ TreeNode* delete_avl(TTree* tree, TreeNode* root, void* elem) {
 	updateHeight(root);
 	return root;
 }
-
-
-void delete(TTree* tree, void* elem) {
-	TreeNode * to_delete = search(tree, tree->root, elem);
-	if (to_delete) {
-		if (to_delete->end == to_delete) {
-			if (to_delete == tree->root && to_delete->right == NULL && to_delete->left == NULL) {
-				destroyTreeNode(tree, tree->root);
-				tree->root = NULL;
-				return;
-			}
-
-			TreeNode* par = to_delete->parent;
-			if (par)
-				par = delete_avl(tree, par, elem);
-			else 
-				to_delete = delete_avl(tree, to_delete, elem);
-			fix(tree, tree->root);
-		} else {
-			if (to_delete->end->next) {
-				to_delete->end->next->prev = to_delete->end->prev;
-			}
-			to_delete->end->prev->next = to_delete->end->next;
-			TreeNode* aux = to_delete->end->prev;
-			destroyTreeNode(tree, to_delete->end);
-			to_delete->end = aux;
-		}			
-		tree->size--;
-	}
-}
-
 
 /* Eliberarea memoriei unui arbore
  */

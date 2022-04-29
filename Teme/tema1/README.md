@@ -13,7 +13,7 @@
  /-OO----OO""="OO--OO"="OO--------OO"="OO-------OO"="OO-------OO"=P
 #####################################################################
 ```
-# 1. Operation :
+## 1. Operation :
 1. arrive_train :
     1. initializes a train.
 2. leave_train : 
@@ -32,7 +32,7 @@
         1. First position check.
         2. After the train position check.
         3. Middle position.
-# 2. Finding
+## 2. Finding
 1. find_express_train :
     1. Biggest difference between locomotive power and train cars weight.
 2. find_overload_train :
@@ -44,7 +44,7 @@
     2. Checking the sequence from every possible train car.
     3. Constantly changing the heaviest sequence.
 
-# 3. Oragnization
+## 3. Oragnization
 1. order_train :
     1. Bubble Sort the train in descending order until on the last loop nothing has chanced.
 2. fix_overload_train :
