@@ -26,14 +26,16 @@ void buildTreeFromFile(char* fileName, TTree* tree) {
 	// Verificarea argumentelor
 	if(fileName == NULL || tree == NULL)
 		return;
+	
 	FILE *f = fopen(fileName, "r");
 	char *s = malloc(256);
-	int j = 0, *all = malloc(sizeof(int));
-	*all = 0;
+	int j = 0, all = 0;
 	while(fgets(s, 256, f)) {
 		char* word = malloc(256);
 		
 		for (int i = 0; i < strlen(s) + 1; i++) {
+			// Separets the letters from other characters
+			// If there is another character the word is sent into the tree.
 			if ((s[i] >= 65 && s[i] <= 90) || (s[i] >= 97 && s[i] <= 122)) {
 				word[j] = s[i];
 				j++;
@@ -41,8 +43,8 @@ void buildTreeFromFile(char* fileName, TTree* tree) {
 				word[j] = '\0';
 				char *to_send = calloc(sizeof(char), 6);
 				strncpy(to_send, word, 5);
-				insert(tree, to_send, all);
-				*all += j;
+				insert(tree, to_send, &all);
+				all += j;
 				j = 0;
 				free(to_send);
 			}
@@ -50,7 +52,6 @@ void buildTreeFromFile(char* fileName, TTree* tree) {
 		}
 		free(word);
 	}
-	free(all);
 	free(s);
 	fclose(f);
 }
@@ -102,7 +103,7 @@ Range* inorderKeyQuery(TTree* tree) {
 	key->capacity = 1;
 	key->index = malloc(key->capacity * sizeof(int));
 	key->size = 0;
-
+// Travels throughout all the nodes
 	while (aux != NULL) {
 
 		if (key->size == key->capacity) {
@@ -136,6 +137,7 @@ Range* levelKeyQuery(TTree* tree) {
 	TreeNode * aux = minimum(tree->root);
 	TreeNode * node_freq = NULL;
 	int max = 0;
+	// Finds the node with the highest frequence node and its level
 	while (aux != NULL) {
 		int freq = 1;
 		TreeNode *tmp = aux;
@@ -159,6 +161,7 @@ Range* levelKeyQuery(TTree* tree) {
 	}
 
 	aux = minimum(tree->root);
+	// Checks every node's level and adds to the key
 	while (aux != NULL) {
 		int level = 0;
 		TreeNode* tmp = aux;
@@ -166,6 +169,7 @@ Range* levelKeyQuery(TTree* tree) {
 			tmp = tmp->parent;
 			level++;
 		}
+		// Node's level
 		if (level == node_level) {
 			tmp = aux;
 			if (tmp == aux->end) {
@@ -210,7 +214,9 @@ Range* rangeKeyQuery(TTree* tree, char* q, char* p) {
 		if (key->size == key->capacity) {
 			key->index = realloc(key->index, key->capacity * 2 *sizeof(int));
 			key->capacity *= 2;
+		
 		}
+		// If the node is in a speciffic range
 		if (tree->compare(aux->elem, q) >= 0 && tree->compare(aux->elem, p) <= 0) {
 			key->index[key->size] = *((int*)aux->info);
 			key->size++;
