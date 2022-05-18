@@ -6,9 +6,10 @@
 
 
 /* We assume there is a defined primitive type Item. */
+typedef int Item;
 
 typedef struct {
-    // Item content;
+    Item content;
     int prior;
 } ItemType;
 

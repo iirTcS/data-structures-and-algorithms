@@ -36,6 +36,7 @@ MinHeap* newQueue(int capacity)
     q->pos = NULL;
     q->elem = malloc(capacity * sizeof(MinHeapNode *));
     q->pos = malloc(capacity * sizeof(int));
+    return q;
 }
 
 void swap(MinHeapNode** a, MinHeapNode** b)
@@ -80,19 +81,43 @@ void SiftDown(MinHeap* h, int idx)
 
 }
 
-int isEmpty(MinHeap* h)
-{
+int isEmpty(MinHeap* h) {
     return (h == NULL) || (h->size == 0);
 }
 
-MinHeapNode* removeMin(MinHeap* h)
-{
-    
+MinHeapNode* removeMin(MinHeap* h) {
+    MinHeapNode* min = h->elem[0];
+    MinHeapNode *last = h->elem[h->size - 1];
+
+    /* Remove the last elem from the vector. */
+    h->size--;
+
+    /* Set latest elem as the first and call heapify downwards. */
+    h->elem[0] = last;
+    SiftDown(h, 0);
+
+    return min;
 }
 
 void SiftUp(MinHeap* h, int v, int d)
 {
-    // int parent = getParent()
+    int idx = h->size - 1;
+    for (int i = 0; i < h->size; i++) {
+        if (h->elem[i]->v == v){
+            idx = i;
+        }
+    }
+
+    int parent = getParent(idx);
+
+    while (parent >= 0 && h->elem[parent]->d > h->elem[idx]->d) {
+        MinHeapNode *aux = h->elem[parent];
+        h->elem[parent] = h->elem[idx];
+        h->elem[idx] = aux;
+
+        idx = parent;
+        parent = getParent(idx);
+    }
 }
 
 void insert(MinHeap* h, int v, int d)
@@ -105,11 +130,16 @@ void insert(MinHeap* h, int v, int d)
 
     h->elem[h->size] = newNode(v,d);
     h->size++;
+    SiftUp(h, v, d);
 }
 
-int isInMinHeap(MinHeap *h, int v)
-{
-  
+int isInMinHeap(MinHeap *h, int v) {
+    for (int i = 0; i < h->size; i++) {
+        if (h->elem[i]->v == v){
+            return 1;
+        }
+    }
+    return 0;
 }
 
 #endif

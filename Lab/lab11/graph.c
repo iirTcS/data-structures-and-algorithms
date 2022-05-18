@@ -58,32 +58,88 @@ void insert_edge_list(TGraphL *G, int v1, int v2, int c)
 void dijkstra(TGraphL G, int s)
 {
     MinHeap *h = newQueue(G.nn);
+	int val[G.nn];
 
 	for (int i = 0; i < G.nn; i++) {
-		if (i != s) {
-			insert(h, i, LLONG_MAX);
-		} else {
-			insert(h, i, 0);
-		}
+		val[i] = INT_MAX - 100;
 	}
+	val[s] = 0;
+	insert(h, s, val[s]);
 
 	while (!isEmpty(h)) {
 		MinHeapNode * u = removeMin(h);
-		int next_step, dist = LONG_MAX;
+
 		for(ATNode t = G.adl[u->v]; t != NULL; t = t->next) {
-			if (dist > t->c) {
-				dist = t->c;
-				next_step = t->v;
+			if (val[t->v] > val[u->v] + t->c) {
+				val[t->v] = val[u->v] + t->c;
+				if (isInMinHeap(h,t->v)) {
+					for (int i = 0; i < h->size; i++) {
+						if (h->elem[i]->v == t->v) {
+							h->elem[i]->d = val[t->v];
+							SiftUp(h, t->v, val[t->v]);
+							break;
+						}
+					}
+				} else {
+					insert(h, t->v, val[t->v]);
+				}
 			}
 		}
 	}
-	
+	printf("Start node: %d\n",s);
+
+	for (int i = 0; i < G.nn; i++) {
+		if (i != s)
+		printf("node: %d -- dist: %d\n",i, val[i]);
+	}
+	printf("\n");
 	
 }
 
-void Prim(TGraphL G)
-{
-    
+void Prim(TGraphL G) {
+	
+	MinHeap *h = newQueue(G.nn);
+	int val[G.nn];
+	int color[G.nn];
+	int dad[G.nn];
+
+	for (int i = 0; i < G.nn; i++) {
+		val[i] = INT_MAX;
+		color[i] = 0;
+		dad[i] = 0;
+	}
+	val[0] = 0; dad[0] = 0;
+	insert(h,0, val[0]);
+
+
+	while (!isEmpty(h)) { 
+		MinHeapNode * u = removeMin(h);
+		for(ATNode t = G.adl[u->v]; t != NULL; t = t->next) {
+			if (color[t->v] == 0 && t->c < val[t->v]) {
+				val[t->v] = t->c;
+				dad[t->v] = u->v;
+
+				if (isInMinHeap(h,t->v)) {
+					for (int i = 0; i < h->size; i++) {
+						if (h->elem[i]->v == t->v) {
+							h->elem[i]->d = val[t->v];
+							SiftUp(h, t->v, val[t->v]);
+						}
+					}
+				} else {
+					insert(h, t->v, val[t->v]);
+				}
+
+			}
+		}
+		color[u->v] = 1;
+	}
+
+    printf("Start node: %d\n",0);
+
+	for (int i = 1; i < G.nn; i++) {
+		printf("Parent[%d] node[%d]\n",dad[i], i);
+	}
 }
 
 
@@ -107,7 +163,7 @@ int main()
 	{
     	printf("%d : ", i);
     	for(t = G.adl[i]; t != NULL; t = t->next)
-   			 printf("%d ",t->v);
+   			 printf("[%d; %d] ",t->v, t->c);
     		 printf("\n");
 	}
 	dijkstra(G,0);
