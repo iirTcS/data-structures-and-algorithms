@@ -41,9 +41,9 @@ MinHeap* newQueue(int capacity)
 
 void swap(MinHeapNode** a, MinHeapNode** b)
 {
-    MinHeapNode **tmp = a;
-    a = b;
-    b = tmp;
+    MinHeapNode *tmp = *a;
+    *a = *b;
+    *b = tmp;
 }
 
 int getLeftChild(int i) {
@@ -101,7 +101,7 @@ MinHeapNode* removeMin(MinHeap* h) {
 
 void SiftUp(MinHeap* h, int v, int d)
 {
-    int idx = h->size - 1;
+    int idx = 0;
     for (int i = 0; i < h->size; i++) {
         if (h->elem[i]->v == v){
             idx = i;
@@ -111,10 +111,7 @@ void SiftUp(MinHeap* h, int v, int d)
     int parent = getParent(idx);
 
     while (parent >= 0 && h->elem[parent]->d > h->elem[idx]->d) {
-        MinHeapNode *aux = h->elem[parent];
-        h->elem[parent] = h->elem[idx];
-        h->elem[idx] = aux;
-
+        swap(&h->elem[parent], &h->elem[idx]);
         idx = parent;
         parent = getParent(idx);
     }

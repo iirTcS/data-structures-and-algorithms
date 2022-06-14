@@ -124,15 +124,24 @@ void Prim(TGraphL G) {
 						if (h->elem[i]->v == t->v) {
 							h->elem[i]->d = val[t->v];
 							SiftUp(h, t->v, val[t->v]);
+							break;
 						}
 					}
 				} else {
 					insert(h, t->v, val[t->v]);
+					// color[t->v] = 0;
 				}
-
 			}
+				// if (u->v == 8) {
+				// 	printf("v : %d ", t->v);
+				// 	// printf("t->c %d val %d\n",t->c, val[t->v]);
+				// 	printf("\n%d  disr %d\n\n", h->elem[0]->v, h->elem[0]->d);
+				// }
+
 		}
 		color[u->v] = 1;
+		// printf("u : %d min=%d d =%d\n", u->v, h->elem[0]->v, h->elem[0]->d);
+
 	}
 
     printf("Start node: %d\n",0);
