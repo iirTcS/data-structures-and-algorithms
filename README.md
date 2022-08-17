@@ -1,4 +1,4 @@
-# Data-Strucutres and Algorithms
+# Data-Structures and Algorithms
 ## 1. Project_1: Train Station
 Creates a log for a train station for:/
 	- Opereting trains.
