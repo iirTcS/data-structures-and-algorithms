@@ -2,13 +2,14 @@ import java.io.*;
 import java.util.*;
 
 public class Trial extends Task {
-    private int nrOfNumbers;
-    private int nrOfSets;
-    private int nrOfSearchedNodes;
-    private String conf = "p cnf ";
-    private String soltionExists = "";
-    private List<Integer> nodes = null;
-    private LinkedList<HashSet<Integer>> sets = new LinkedList<>();
+    protected int nrOfNumbers;
+    protected int nrOfSets;
+    protected int nrOfSearchedNodes;
+    protected String conf = "p cnf ";
+    protected String solutionExists = "";
+    protected List<Integer> foundNodes = null;
+    protected LinkedList<HashSet<Integer>> sets = new LinkedList<>();
+
 
     @Override
     public void solve() throws IOException, InterruptedException {
@@ -17,7 +18,6 @@ public class Trial extends Task {
         this.askOracle();
         this.decipherOracleAnswer();
         this.writeAnswer();
-
     }
 
     @Override
@@ -113,10 +113,10 @@ public class Trial extends Task {
     @Override
     public void decipherOracleAnswer() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(this.oracleOutput));
-        this.soltionExists = reader.readLine();
-        if (Boolean.parseBoolean(this.soltionExists)) {
+        this.solutionExists = reader.readLine();
+        if (Boolean.parseBoolean(this.solutionExists)) {
             reader.readLine();
-            this.nodes = Arrays.stream(reader.readLine().split(" "))
+            this.foundNodes = Arrays.stream(reader.readLine().split(" "))
                     .map(Integer::parseInt)
                     .filter(integer -> integer > 0)
                     .map(integer -> {
@@ -131,11 +131,10 @@ public class Trial extends Task {
 
     @Override
     public void writeAnswer() throws IOException {
-        System.out.println(this.soltionExists);
-        if (Boolean.parseBoolean(this.soltionExists)) {
+        System.out.println(this.solutionExists);
+        if (Boolean.parseBoolean(this.solutionExists)) {
             System.out.println(this.nrOfSearchedNodes);
-            nodes.forEach(integer -> System.out.print(integer + " "));
-            System.out.println();
+            foundNodes.forEach(integer -> System.out.print(integer + " "));
         }
     }
 
@@ -144,7 +143,7 @@ public class Trial extends Task {
         try {
             trial.solve();
         } catch (Exception e) {
-            System.out.println("Problem at solver");
+            System.out.println("Problem at solver " + e.getLocalizedMessage());
         }
     }
 }
