@@ -61,7 +61,9 @@ public class Test {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        new Test().formulateOracleQuestion();
+    public static void main(String[] args) throws IOException, InterruptedException {
+        Trial trial = new Trial();
+        trial.readProblemData();
+        trial.formulateOracleQuestion();
     }
 }

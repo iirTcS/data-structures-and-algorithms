@@ -146,7 +146,7 @@ def check_readme(config):
 
     log('+++++ running check_readme ({:g}p) ...'.format(config.penalty_readme))
 
-    readme = pathlib.Path('README')
+    readme = pathlib.Path('README.md')
     readme_points = 0
     if not readme.is_file():
         reason = '\'{}\' is missing!'.format(readme.name)

@@ -1,8 +1,5 @@
 import java.io.*;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Trial extends Task {
     private int nrOfNumbers;
@@ -46,7 +43,27 @@ public class Trial extends Task {
     @Override
     public void formulateOracleQuestion() throws IOException {
         FileWriter writer = new FileWriter(this.oracleInput);
-//        FileWriter writer = new FileWriter("test.input.txt");
+        if (this.nrOfSearchedNodes == 1) {
+            for (int i = 0; i < this.nrOfSets; i++) {
+                Set<Integer> analyzed = this.sets.get(i);
+                if (analyzed.size() == this.nrOfNumbers) {
+                    boolean valid = true;
+                    for (int j = 1; j <= this.nrOfNumbers; j++) {
+                        if (!analyzed.contains(j)) {
+                            valid = false;
+                            break;
+                        }
+                    }
+                    if (valid) {
+                        writer.write(conf + 1 + " " + 1 + "\n" + (i + 1)+" 0");
+                        writer.flush();
+                        writer.close();
+                        return;
+                    }
+                }
+            }
+        }
+
         int V = this.nrOfSearchedNodes * this.nrOfSets;
         int count = 0;
 
@@ -57,9 +74,7 @@ public class Trial extends Task {
             }
             clauses.append("0\n");
             count += 1;
-        }
 
-        for (int i = 0; i < this.nrOfSearchedNodes; i++) {
             for (int j = 1; j <= this.nrOfSets; j++) {
                 for (int k = j + 1; k <= this.nrOfSets; k++) {
                     clauses.append("-").append(j + i * this.nrOfSets)
@@ -68,7 +83,6 @@ public class Trial extends Task {
                 }
             }
         }
-
 
         for (int j = 1; j <= this.nrOfSets; j++) {
             for (int i = 0; i < this.nrOfSearchedNodes; i++) {
@@ -86,10 +100,7 @@ public class Trial extends Task {
                     }
                 }
             }
-            clauses.append("0");
-            if (i != this.nrOfNumbers) {
-                clauses.append("\n");
-            }
+            clauses.append("0\n");
             count += 1;
         }
 
@@ -133,7 +144,7 @@ public class Trial extends Task {
         try {
             trial.solve();
         } catch (Exception e) {
-            System.out.println("Problem solve");
+            System.out.println("Problem at solver");
         }
     }
 }
