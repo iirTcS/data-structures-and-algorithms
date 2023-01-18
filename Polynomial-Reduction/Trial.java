@@ -2,12 +2,6 @@ import java.io.*;
 import java.util.*;
 
 public class Trial extends Task {
-    protected int nrOfNumbers;
-    protected int nrOfSets;
-    protected int nrOfSearchedNodes;
-    protected String conf = "p cnf ";
-    protected String solutionExists = "";
-    protected List<Integer> foundNodes = null;
     protected LinkedList<HashSet<Integer>> sets = new LinkedList<>();
 
 
@@ -38,6 +32,7 @@ public class Trial extends Task {
             }
             this.sets.add(set);
         }
+        reader.close();
     }
 
     @Override

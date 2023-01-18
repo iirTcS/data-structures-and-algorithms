@@ -56,6 +56,7 @@ public class Rise extends Trial {
             }
         }
         this.nrOfSets = this.sets.size();
+        reader.close();
     }
 
     @Override

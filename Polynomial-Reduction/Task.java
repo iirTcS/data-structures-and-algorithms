@@ -1,8 +1,18 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 public abstract class Task {
+
+    protected int nrOfNumbers;
+    protected int nrOfSets;
+    protected int nrOfSearchedNodes;
+    protected String conf = "p cnf ";
+    protected String solutionExists = "";
+    protected List<Integer> foundNodes = null;
     protected final String oracleInput = "sat.cnf";
     protected final String oracleOutput = "sat.sol";
     public abstract void solve() throws IOException, InterruptedException;

@@ -1,2 +1,48 @@
-8 1 1
-8 1 2 8 7 3 6 4 5
+Fear
+Goblin King
+Death Ward
+Mana Short
+Psychic Venom
+Blue Ward
+Farmstead
+Darkpact
+Volcanic Eruption
+Lightning Bolt
+Wrath of God
+Power Surge
+Creature Bond
+Prodigal Sorcerer
+White Ward
+Deathlace
+Reverse Damage
+Orcish Oriflamme
+Cursed Land
+False Orders
+Animate Artifact
+Samite Healer
+Orcish Artillery
+Righteousness
+Shatter
+Smoke
+Lance
+Holy Armor
+Drudge Skeletons
+White Knight
+Blaze of Glory
+Control Magic
+Power Sink
+Firebreathing
+Sea Serpent
+Circle of Protection: Green
+Fork
+Blue Elemental Blast
+Weakness
+Nether Shadow
+Chaoslace
+Gloom
+Unholy Strength
+Veteran Bodyguard
+Bog Wraith
+Stasis
+Siren's Call
+Fire Elemental
