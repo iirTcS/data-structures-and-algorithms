@@ -9,6 +9,7 @@
   - [2. Vigenère Chiper](#2-vigenère-chiper)
 - [Algorithm Analysis](#algorithm-analysis)
   - [1. Comparison-of-Hash-tables-and-Red-Blacks-Trees](#1-comparison-of-hash-tables-and-red-blacks-trees)
+  - [2. Polynomial Reduction](#2-polynomial-reduction)
 
 ---
 
@@ -32,3 +33,5 @@ Multi-dicitonary based on AVL tree in combination with Double-Linked-Lists.
 ## Algorithm Analysis
 
 ### 1. [Comparison-of-Hash-tables-and-Red-Blacks-Trees](Comparison-of-Hash-tables-and-Red-Blacks-Trees/README.md)
+
+### 2. [Polynomial Reduction](Polynomial-Reduction/README.md)

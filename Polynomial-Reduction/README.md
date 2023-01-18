@@ -41,22 +41,25 @@ Its main responsibility is to make a polynomial reduction to the SAT problem or 
 All the tests and references are in the [tasks'](tasks) folder.
 
 Hierarchy of created classes:
+
 ```bash
 └─Task.java  
     ├──> Trial.java ──────> Rise.java
     └──> Redemption.java
 ```
+
 ### Trial
 
-**Complexity : O(n * m * lg m)**
+Complexity : $O(n * m * lg(m))$
 
 The main idea of this task is to associate the problem given to the SAT problem to solve it < 8s.
 
 The sets contain numbers, and we have to search if exists a combination of sets that can create a sequence of N numbers.
 
 Steps taken:
+
 1. Read the input and parse it into sets.
-2. Transform the sets into 4 main group of clauses for the [sat_oracle](sat_oracle.py). 
+2. Transform the sets into 4 main group of clauses for the [sat_oracle](sat_oracle.py).
    1. Only one set can be chosen at a given moment. So we create a variable for each set for a given moment in time.
    2. There cannot be 2 sets from the same moment in time. So we create individual clauses for every node in a given moment.
    3. If a node was chosen in a previous moment we cannot choose it again in a different moment in time.
@@ -66,9 +69,10 @@ Steps taken:
 
 ### Rise
 
-**Complexity : O(n * m * lg m * k)**
+Complexity : $O(n * m * lg(m) * k)$
 
 Transform sets that contain words to the previous task to find the minimum of sets that are needed to create a combination of N words.
+
 1. Read for the searched words, the words that we know already and the sets where to search.
 2. Eliminate form the searched words the words that we know already.
 3. Create the sets with the searched words and eliminate every word that is useless.
@@ -76,10 +80,9 @@ Transform sets that contain words to the previous task to find the minimum of se
 5. Call the previous task.
 6. Translate the output to the given problem.
 
-### Redemption 
+### Redemption
 
-**Complexity : O(n3)**
-
+Complexity : $O(n^3)$
 
 This exact approximation is to sort the sets created as in [Rise](#rise), except the mapping the words to an id,
 ascending order by the number of elements in the set.
@@ -93,3 +96,8 @@ We traverse each set in this order and delete from the searched words every enco
 `make build` - compiles the source files and creates all the necessary files and dependencies. [makefile](Makefile)
 
 `./check` - To run the project [check](check)
+
+<script
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+  type="text/javascript">
+</script>
