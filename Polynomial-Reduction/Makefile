@@ -1,4 +1,4 @@
-build: trial rise redemption
+build: trial rise redemption create_files
 
 run_trial:
 	java Trial
@@ -18,7 +18,10 @@ rise: Rise.java Task.java
 redemption: Redemption.java Task.java
 	javac $^
 
+create_files:
+	touch sat.sol sat.cnf
+
 clean:
-	rm -f *.class
+	rm -f *.class sat.*
 
 .PHONY: build clean

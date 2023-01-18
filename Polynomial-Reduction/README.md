@@ -1,108 +1,95 @@
-## Analiza Algoritmilor 2023 - Tema2
+# Polynomial Reduction
 
-### Structură arhivă
+`Author : Rotari Corneliu`
+
+---
+
+- [Structure](#structure)
+- [Description](#description)
+  - [Trial](#trial)
+  - [Rise](#rise)
+  - [Redemption](#redemption)
+- [Build and Run](#build-and-run)
+
+---
+
+## Structure
+
 ```bash
-student@aa:$ tree -L 1
 .
-├── check
-├── check_utils
-├── install.sh
-├── Makefile.example_cpp
 ├── Makefile
 ├── README.md
-├── sat_oracle.py
-├── task.h
+├── Redemption.java
+├── Rise.java
 ├── Task.java
-└── tasks
+├── Trial.java
+├── check
+├── install.sh
+├── sat_oracle.py
+├── tasks/
+└── check_utils/
 ```
-### Structură cod
 
-Pentru rezolvarea task-urilor `trial` și `rise`, recomandăm modularizare în următoarele funcții:
+---
 
-1. o funcție care citește de la `stdin` datele de intrare.
-1. o funcție care formulează clauzele către oracol.
-1. o funcție care apelează oracolul (deja implementată).
-1. o funcție care descifrează (prelucrează) răspunsul oracolului.
-1. o funcție care afișează rezultatul la `stdout`.
+## Description
 
-Pentru fiecare din limbajele `C++` și `Java` există o clasă
-ce conține cele 5 metode menționate anterior, din care puteți moșteni câte o clasă pentru fiecare problemă in parte (e.g: puteți avea clasele Task1, Task2, Task3 care moștenesc clasa abstractă Task).
+This project associates and models the applications of practical problems with NP-Hard problems.
 
-Trebuiesc implementate doar metodele 1, 2, 4, 5. Apelarea oracolului este deja realizată de funcția `ask_oracle` (`askOracle`). Va trebui **doar** să o apelați după ce formulați clauzele SAT corespunzătoare fiecărei probleme.
+Its main responsibility is to make a polynomial reduction to the SAT problem or to approximate a result in a specific time frame.
 
-Pentru rezolvarea task-ului `redemption` se poate folosi orice abordare.
+All the tests and references are in the [tasks'](tasks) folder.
 
-### Makefile
+Hierarchy of created classes:
+```bash
+└─Task.java  
+    ├──> Trial.java ──────> Rise.java
+    └──> Redemption.java
+```
+### Trial
 
-Pentru fiecare problemă, va trebui să fie o regulă corespunzătoare în Makefile run_`<nume_problema`> (e.g: `run_rise`)
+**Complexity : O(n * m * lg m)**
 
-Există câte un exemplu pentru fiecare din limbajele `C++` și `Java`. **Nu este permisă folosirea flag-urilor de optimizare.**
+The main idea of this task is to associate the problem given to the SAT problem to solve it < 8s.
 
-### Rulare checker
+The sets contain numbers, and we have to search if exists a combination of sets that can create a sequence of N numbers.
 
-Pentru a rula checker-ul, folosiți comanda `./check`
+Steps taken:
+1. Read the input and parse it into sets.
+2. Transform the sets into 4 main group of clauses for the [sat_oracle](sat_oracle.py). 
+   1. Only one set can be chosen at a given moment. So we create a variable for each set for a given moment in time.
+   2. There cannot be 2 sets from the same moment in time. So we create individual clauses for every node in a given moment.
+   3. If a node was chosen in a previous moment we cannot choose it again in a different moment in time.
+   4. We specify all the sets in which a specific number exits.
+3. Print all the clauses in a file and ask the oracle if a solution exists.
+4. We decipher and write the output.
 
-Pentru a rula un anumit task, folosiți comanda `./check --task {nume_task}`. (exemplu: `./check --task rise`).
+### Rise
 
-Testele pentru fiecare problemă se găsesc în folder-ul `tasks/<nume_problema>/tests`. (exemplu: testele pentru problema rise se găsesc în folder-ul `tasks/rise/tasks`).
+**Complexity : O(n * m * lg m * k)**
 
-După rularea checker-ului, pentru fiecare test este generat un fișier de output în folderul (`tasks/<nume_problemă>/tests/<XY-nume_problemă>/<XY-nume_problemă.out>`), unde XY este numărul testului
-(exemplu: **după** rularea checker-ului, rezultatul testului 00 pentru problema `rise`, output-ul se va găsi la ` tasks/rise/tests/00-rise/00-rise.out`).
+Transform sets that contain words to the previous task to find the minimum of sets that are needed to create a combination of N words.
+1. Read for the searched words, the words that we know already and the sets where to search.
+2. Eliminate form the searched words the words that we know already.
+3. Create the sets with the searched words and eliminate every word that is useless.
+4. Map the words to a specific number as an id.
+5. Call the previous task.
+6. Translate the output to the given problem.
 
-### Mod de testare
+### Redemption 
 
-1. `trial` : fișierele de referință conțin doar `True` sau `False`, reprezentând dacă fișierul de input are sau nu soluție.
-Dacă răspunsul este `True`, checker-ul va verifica că indicii afisați formează un set cover valid.
-
-1. `rise` : fișierele de referință conține numărul minim de pachețele achiziționate.
-Checker-ul va verifica că indicii pachețelelor afisațe conțin cărțile dorite.
-
-1. `redemption` : fișierele de referință conține numărul minim de pachețele achiziționate.
-Checker-ul va verifica că indicii pachețelelor afisațe conțin cărțile dorite.
-
-    Pentru a măsura performanța algoritmului vom folosi următoarea formulă:
-
-    ```python
-    factor1 = (min(given_elems, expected_elems) / expected_elems)
-
-    factor2 = 1 - ((abs(given_sets - expected_sets)) / expected_sets)
-
-    return 0.5 * factor1 + 0.5 * factor2
-    ```
-
-    unde
-
-    * given_sets = numărul de pachețele date în soluția voastră
-    * expected_sets-uri = numărul de pachețele din soluția optimă
-    * given_elems = cărțile necesare date în soluția voastră
-    * expected_elems = cărțile necesare
-
-    Punctarea se va face astfel:
-
-    * un scor `<= 0.5` va fi punctat cu 0p
-    * un scor `>= 0.8` va fi punctat cu 3p, punctajul maxim pe test.
-    * un scor s între 0.5 și 0.8 va fi punctat liniar după formula:
-    ```
-        punctaj = (s - 0.5) / (0.8 - 0.5) * 3p
-    ```
-
-    Exemplu:
-
-    1. un scor de `0.65` va obține `1.5p / 3p`
-    1. un scor de `0.7` va fi punctat cu `2p / 3p`
+**Complexity : O(n3)**
 
 
-1. `bonus` : tema are un bonus de `20p` și se poate obține prin trecerea a 5 teste private de pe vmchecker pentru task-ul `rise`. Punctarea se va face astfel:
+This exact approximation is to sort the sets created as in [Rise](#rise), except the mapping the words to an id,
+ascending order by the number of elements in the set.
+This way we maximise the chances of given set to have a majority of the searched words.
+We traverse each set in this order and delete from the searched words every encounter of a new-found word.
 
-    * un scor `<= 0.71` va fi punctat cu 0p
-    * un scor `>= 0.91` va fi punctat cu 4p, punctajul maxim pe test.
-    * un scor s între 0.71 și 0.91 va fi punctat liniar după formula:
-    ```
-        punctaj = (s - 0.71) / (0.91 - 0.71) * 4p
-    ```
+---
 
-### Precizări README
+## Build and Run
 
-README-ul aferent temei va conține ideea de rezolvare a task-urilor, dar și complexitatea soluțiilor propuse.
-În cazul împrumutului de idei, vă rugăm să treceți, la sfârșitul fișierului README, aferent temei, în secțiunea Referințe, elementele preluate, alături de sursele utilizate.
-Acestea din urmă pot fi cărți, articole de pe internet etc.
+`make build` - compiles the source files and creates all the necessary files and dependencies. [makefile](Makefile)
+
+`./check` - To run the project [check](check)

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e7ed88bd-e40f-4b8c-b5c6-e470c0d50158" name="Changes" comment="[Polynomial Reduction] Done">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Redemption.java" beforeDir="false" afterPath="$PROJECT_DIR$/Redemption.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rise.java" beforeDir="false" afterPath="$PROJECT_DIR$/Rise.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trial.java" beforeDir="false" afterPath="$PROJECT_DIR$/Trial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/check" beforeDir="false" afterPath="$PROJECT_DIR$/check" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/.check.grade" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/Redemption.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/Rise.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/Task.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/Test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/Trial.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/check" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/check_utils/.surprise/champions.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/check_utils/.surprise/congrats_gta.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/check_utils/.surprise/imperial_march.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/check_utils/.surprise/load_gta.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/check_utils/.surprise/play_cs.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/check_utils/.surprise/play_final.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/check_utils/.surprise/play_testing.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/check_utils/.surprise/star_wars.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/check_utils/.surprise/success_gta.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/check_utils/.surprise/yoda.ascii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/check_utils/.surprise/yoda.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/check_utils/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/check_utils/checks.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/check_utils/grader.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/check_utils/parser.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/check_utils/utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/install.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/sat.cnf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/sat.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/sat_oracle.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/task.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/grader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/00-redemption/00-redemption.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/00-redemption/00-redemption.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/00-redemption/00-redemption.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/01-redemption/01-redemption.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/01-redemption/01-redemption.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/01-redemption/01-redemption.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/02-redemption/02-redemption.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/02-redemption/02-redemption.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/02-redemption/02-redemption.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/03-redemption/03-redemption.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/03-redemption/03-redemption.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/03-redemption/03-redemption.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/04-redemption/04-redemption.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/04-redemption/04-redemption.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/04-redemption/04-redemption.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/05-redemption/05-redemption.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/05-redemption/05-redemption.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/05-redemption/05-redemption.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/06-redemption/06-redemption.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/06-redemption/06-redemption.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/06-redemption/06-redemption.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/07-redemption/07-redemption.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/07-redemption/07-redemption.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/07-redemption/07-redemption.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/08-redemption/08-redemption.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/08-redemption/08-redemption.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/08-redemption/08-redemption.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/09-redemption/09-redemption.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/09-redemption/09-redemption.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/redemption/tests/09-redemption/09-redemption.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/grader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/00-rise/00-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/00-rise/00-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/00-rise/00-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/01-rise/01-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/01-rise/01-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/01-rise/01-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/02-rise/02-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/02-rise/02-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/02-rise/02-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/03-rise/03-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/03-rise/03-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/03-rise/03-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/04-rise/04-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/04-rise/04-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/04-rise/04-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/05-rise/05-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/05-rise/05-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/05-rise/05-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/06-rise/06-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/06-rise/06-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/06-rise/06-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/07-rise/07-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/07-rise/07-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/07-rise/07-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/08-rise/08-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/08-rise/08-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/08-rise/08-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/09-rise/09-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/09-rise/09-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/09-rise/09-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/10-rise/10-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/10-rise/10-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/10-rise/10-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/11-rise/11-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/11-rise/11-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/11-rise/11-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/12-rise/12-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/12-rise/12-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/12-rise/12-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/13-rise/13-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/13-rise/13-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/13-rise/13-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/14-rise/14-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/14-rise/14-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/14-rise/14-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/15-rise/15-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/15-rise/15-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/15-rise/15-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/16-rise/16-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/16-rise/16-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/16-rise/16-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/17-rise/17-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/17-rise/17-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/17-rise/17-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/18-rise/18-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/18-rise/18-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/18-rise/18-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/19-rise/19-rise.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/19-rise/19-rise.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/rise/tests/19-rise/19-rise.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/grader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/00-trial/00-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/00-trial/00-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/00-trial/00-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/01-trial/01-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/01-trial/01-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/01-trial/01-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/02-trial/02-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/02-trial/02-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/02-trial/02-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/03-trial/03-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/03-trial/03-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/03-trial/03-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/04-trial/04-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/04-trial/04-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/04-trial/04-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/05-trial/05-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/05-trial/05-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/05-trial/05-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/06-trial/06-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/06-trial/06-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/06-trial/06-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/07-trial/07-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/07-trial/07-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/07-trial/07-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/08-trial/08-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/08-trial/08-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/08-trial/08-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/09-trial/09-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/09-trial/09-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/09-trial/09-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/10-trial/10-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/10-trial/10-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/10-trial/10-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/11-trial/11-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/11-trial/11-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/11-trial/11-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/12-trial/12-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/12-trial/12-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/12-trial/12-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/13-trial/13-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/13-trial/13-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/13-trial/13-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/14-trial/14-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/14-trial/14-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/14-trial/14-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/15-trial/15-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/15-trial/15-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/15-trial/15-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/16-trial/16-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/16-trial/16-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/16-trial/16-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/17-trial/17-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/17-trial/17-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/17-trial/17-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/18-trial/18-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/18-trial/18-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/18-trial/18-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/19-trial/19-trial.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/19-trial/19-trial.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tasks/trial/tests/19-trial/19-trial.ref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/tema2-aa-public.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Polynomial-Reduction.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/test.input.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/tema2-aa-public/test.output.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sat.cnf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sat.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/task.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tema2-aa-public.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.input.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.output.txt" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2KVRjmY2wpSKuoTsyPEUYMeBFvC" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.sourceCode",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e7ed88bd-e40f-4b8c-b5c6-e470c0d50158" name="Changes" comment="" />
+      <created>1674057905416</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1674057905416</updated>
+      <workItem from="1674057907308" duration="122000" />
+      <workItem from="1674058662474" duration="7292000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="[Polynomial Reduction] Done" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Polynomial Reduction] Done" />
+  </component>
+</project>

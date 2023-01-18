@@ -60,7 +60,7 @@ public class Rise extends Trial {
     }
 
     @Override
-    public void writeAnswer() throws IOException {
+    public void writeAnswer() {
         System.out.println(this.nrOfSearchedNodes);
         foundNodes.forEach(integer -> System.out.print(integer + " "));
     }

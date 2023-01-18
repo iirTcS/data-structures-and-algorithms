@@ -7,16 +7,10 @@ public class Redemption extends Task{
 
     private static class CardSet extends HashSet<String> {
         public int pos;
-        public int nrOfContains;
 
         public CardSet(int pos) {
             super();
             this.pos = pos;
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " pos=" + pos;
         }
     }
 
@@ -39,9 +33,13 @@ public class Redemption extends Task{
         String argLine = reader.readLine();
         String[] arg = argLine.split(" ");
         ArrayList<String> initialCards = new ArrayList<>();
+
+        /* Read our cards */
         for (int i = 0; i < Integer.parseInt(arg[0]); i++) {
             initialCards.add(reader.readLine());
         }
+
+        /* Eliminate them from the searched cards */
         for (int i = 0; i < Integer.parseInt(arg[1]); i++) {
             String nameOfCard = reader.readLine();
             if (!initialCards.contains(nameOfCard)) {
@@ -49,6 +47,7 @@ public class Redemption extends Task{
             }
         }
 
+        /* Create set from cards that are present in the searched cards */
         for (int i = 0; i < Integer.parseInt(arg[2]); i++) {
             CardSet set = new CardSet(i + 1);
             String nrInThisSet = reader.readLine();
@@ -86,14 +85,6 @@ public class Redemption extends Task{
     public void writeAnswer() {
         System.out.println(this.nrOfSearchedNodes);
         foundNodes.forEach(integer -> System.out.print(integer + " "));
-    }
-
-    @Override
-    public void formulateOracleQuestion() throws IOException {
-    }
-
-    @Override
-    public void decipherOracleAnswer() throws IOException {
     }
 
     public static void main(String[] args) {

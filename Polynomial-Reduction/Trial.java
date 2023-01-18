@@ -17,15 +17,15 @@ public class Trial extends Task {
     @Override
     public void readProblemData() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String line = reader.readLine();
-        String[] arg = line.split(" ");
+        String argLine = reader.readLine();
+        String[] arg = argLine.split(" ");
         this.nrOfNumbers = Integer.parseInt(arg[0]);
         this.nrOfSets = Integer.parseInt(arg[1]);
         this.nrOfSearchedNodes = Integer.parseInt(arg[2]);
 
         for (int i = 0; i < this.nrOfSets; i++) {
-            line = reader.readLine();
-            arg = line.split(" ");
+            argLine = reader.readLine();
+            arg = argLine.split(" ");
             HashSet<Integer> set = new HashSet<>();
             for (int j = 1; j < Integer.parseInt(arg[0]) + 1; j++) {
                 set.add(Integer.parseInt(arg[j]));
@@ -35,13 +35,14 @@ public class Trial extends Task {
         reader.close();
     }
 
-    @Override
+
     public void formulateOracleQuestion() throws IOException {
         FileWriter writer = new FileWriter(this.oracleInput);
+        /* Check every set greater than the searched number if has every number  */
         if (this.nrOfSearchedNodes == 1) {
             for (int i = 0; i < this.nrOfSets; i++) {
                 Set<Integer> analyzed = this.sets.get(i);
-                if (analyzed.size() == this.nrOfNumbers) {
+                if (analyzed.size() <= this.nrOfNumbers) {
                     boolean valid = true;
                     for (int j = 1; j <= this.nrOfNumbers; j++) {
                         if (!analyzed.contains(j)) {
@@ -59,34 +60,39 @@ public class Trial extends Task {
             }
         }
 
+        /* Create clauses */
         int V = this.nrOfSearchedNodes * this.nrOfSets;
-        int count = 0;
+        int F = 0;
 
         StringBuilder clauses = new StringBuilder();
+
+        /* Only one set a given moment */
         for (int i = 0; i < this.nrOfSearchedNodes; i++) {
             for (int j = 1; j <= this.nrOfSets; j++) {
                 clauses.append(j + i * this.nrOfSets).append(" ");
             }
             clauses.append("0\n");
-            count += 1;
+            F += 1;
 
             for (int j = 1; j <= this.nrOfSets; j++) {
                 for (int k = j + 1; k <= this.nrOfSets; k++) {
                     clauses.append("-").append(j + i * this.nrOfSets)
                             .append(" -").append(k + i * this.nrOfSets).append(" 0\n");
-                    count += 1;
+                    F += 1;
                 }
             }
         }
 
+        /* Eliminate duplicate sets */
         for (int j = 1; j <= this.nrOfSets; j++) {
             for (int i = 0; i < this.nrOfSearchedNodes; i++) {
                 clauses.append("-").append(j + i * this.nrOfSets).append(" ");
             }
             clauses.append("0\n");
-            count +=1;
+            F +=1;
         }
 
+        /* Every number where is located */
         for (int i = 1; i <= this.nrOfNumbers; i++) {
             for (int j = 0; j < this.nrOfSets; j++) {
                 if (this.sets.get(j).contains(i)) {
@@ -96,16 +102,14 @@ public class Trial extends Task {
                 }
             }
             clauses.append("0\n");
-            count += 1;
+            F += 1;
         }
 
-
-        writer.write(conf + V + " " + count + "\n" + clauses);
+        writer.write(conf + V + " " + F + "\n" + clauses);
         writer.flush();
         writer.close();
     }
 
-    @Override
     public void decipherOracleAnswer() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(this.oracleOutput));
         this.solutionExists = reader.readLine();
@@ -122,10 +126,11 @@ public class Trial extends Task {
                     })
                     .toList();
         }
+        reader.close();
     }
 
     @Override
-    public void writeAnswer() throws IOException {
+    public void writeAnswer() {
         System.out.println(this.solutionExists);
         if (Boolean.parseBoolean(this.solutionExists)) {
             System.out.println(this.nrOfSearchedNodes);
