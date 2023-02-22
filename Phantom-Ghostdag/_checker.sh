@@ -51,7 +51,7 @@ do
 	fileOut="blockdag.out"
 	cp "$fileIn" "blockdag.in"
         rm $fileOut > /dev/null 2>&1
-	timeout 20 ./blockdag -c1 > /dev/null 2>&1
+	timeout 20 ./blockdag -c1
 	diff $fileOut $fileRef > /dev/null
 	EXIT_CODE=$?
 	if (( i < 10 )); then
@@ -77,7 +77,7 @@ do
 	fileOut="blockdag.out"
 	fileRef="teste/test"$i"_2.ref"
 	cp "$fileIn" "blockdag.in"
-	timeout 20 ./blockdag -c2 ${NODES[$i]} > /dev/null 2>&1
+	timeout 20 ./blockdag -c2 ${NODES[$i]}
 	diff $fileOut $fileRef > /dev/null
 	EXIT_CODE=$?
 	if (( i < 10 )); then
@@ -103,7 +103,7 @@ do
 	fileOut="blockdag.out"
 	fileRef="teste/test"$i"_3.ref"
 	cp "$fileIn" "blockdag.in"
-	timeout 60 ./blockdag -c3 ${KVALUES[$i]} > /dev/null 2>&1
+	timeout 60 ./blockdag -c3 ${KVALUES[$i]}
 	EXIT_CODE=$(comm -13 <(sort -u $fileRef) <(sort -u $fileOut))
 	if (( i < 10 )); then
 		idx=" $i"

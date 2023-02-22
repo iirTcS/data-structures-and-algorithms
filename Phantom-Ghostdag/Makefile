@@ -8,4 +8,4 @@ run:
 	./blockdag
 
 clean:
-	rm -rf blockdag* rezultat_valgrind.txt
+	rm -rf blockdag # * rezultat_valgrind.txt

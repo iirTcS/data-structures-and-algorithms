@@ -5,7 +5,7 @@ ANode create_node(char* name)
     ANode node = malloc(sizeof(Graph_Node));
     node->name = name;
     node->next = NULL;
-    node->original = NULL;
+    node->id = -1;
     return node;
 }
 
@@ -35,6 +35,7 @@ Graph* create_graph(FILE *fd_in)
     for (int i = 0; i < graph->nr_nodes; i++)
     {
         graph->Ad_List[i] = create_node(list_of_names[i]);
+        graph->Ad_List[i]->id = i;
     }
 
     free(list_of_names);
@@ -48,7 +49,7 @@ Graph* create_graph(FILE *fd_in)
         for (int j = 1; j < nr_of_names; j++)
         {   
             ANode next_node = create_node(list_of_names[j]);
-            next_node->original = find_node(graph, list_of_names[j], NULL);
+            find_node(graph, list_of_names[j], &next_node->id);
             node->next = next_node;
             node = next_node;
             next_node = NULL;

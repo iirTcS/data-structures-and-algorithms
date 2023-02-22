@@ -9,14 +9,19 @@
 #define TASK1 "-c1"
 #define TASK2 "-c2"
 #define TASK3 "-c3"
-#define NO_CYCLE "correct"
-#define CYCLE "impossible"
+#define NO_CYCLE "correct\n"
+#define CYCLE "impossible\n"
+#define PAST "past"
+#define TIPS "tips"
+#define FUTURE "future"
+#define ANTICONE "anticone"
+#define GRAPH "G"
 
 typedef struct TNode
 {
     char* name;
     struct TNode *next;
-    struct TNode *original;
+    int id;
 } Graph_Node, *ANode;
 
 
@@ -27,10 +32,6 @@ typedef struct TGraph
 } Graph;
 
 
-
-char* check_cycle(Graph* graph);
-
-
 ANode create_node(char* name);
 ANode find_node(Graph* graph, char* name, int* index);
 Graph* create_graph(FILE *fd_in);
@@ -38,6 +39,19 @@ char** fread_nodes_name(FILE *fd, int* nr_of_names);
 void destroy_graph(Graph* graph);
 void delete_list_of_names(char** list, int nr);
 void print_graph(Graph* graph);
+
+/* Task1 */
+char* check_cycle(Graph* graph);
+
+/* Task2 */
+char** check_node_realtions(Graph* graph , char* node);
+char* anticone(Graph* graph, ANode node);
+char* future(Graph* graph, ANode node);
+char* tips(Graph* graph);
+char* past(Graph* graph, ANode node);
+char* format_respone(char** nodes_names, int names_count, char* type, char* node);
+void bfs(Graph* graph, int *visited, int pos);
+void future_helper(Graph* graph, int* future_nodes, int node_id);
 
 
 #endif
