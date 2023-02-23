@@ -4,18 +4,20 @@
 
 ---
 
+## Table of contents
+
 - [Data-Structures](#data-structures)
-  - [1. Train Station](#1-train-station)
-  - [2. Vigenère Chiper](#2-vigenère-chiper)
 - [Algorithm Analysis](#algorithm-analysis)
-  - [1. Comparison-of-Hash-tables-and-Red-Blacks-Trees](#1-comparison-of-hash-tables-and-red-blacks-trees)
-  - [2. Polynomial Reduction](#2-polynomial-reduction)
 
 ---
 
 ## Data-Structures
 
-### 1. [Train Station](Train-Station/README.md)
+- [Train Station](#train-station)
+- [Vigenère Chiper](#vigenère-chiper)
+- [Phantom Ghostdag](#phantom-ghostdag)
+
+### [Train Station](./data-structures/Train-Station)
 
 Creates a log for a train station for:
 
@@ -24,14 +26,19 @@ Creates a log for a train station for:
 - Organazing them in the most efficient way.
 This project utilizes one way linked lists that take the form of the trains and store the information.
 
-### 2. [Vigenère Chiper](Vigenère-Chiper/README.md)
+### [Vigenère Chiper](./data-structures/Vigenère-Chiper)
 
 Multi-dicitonary based on AVL tree in combination with Double-Linked-Lists.
+
+### [Phantom Ghostdag](./data-structures/Phantom-Ghostdag)
 
 ---
 
 ## Algorithm Analysis
 
-### 1. [Comparison-of-Hash-tables-and-Red-Blacks-Trees](Comparison-of-Hash-tables-and-Red-Blacks-Trees/README.md)
+- [Comparison-of-Hash-tables-and-Red-Blacks-Trees](#comparison-of-hash-tables-and-red-blacks-trees)
+- [Polynomial Reduction](#polynomial-reduction)
 
-### 2. [Polynomial Reduction](Polynomial-Reduction/README.md)
+### [Comparison-of-Hash-tables-and-Red-Blacks-Trees](Comparison-of-Hash-tables-and-Red-Blacks-Trees)
+
+### [Polynomial Reduction](Polynomial-Reduction)
