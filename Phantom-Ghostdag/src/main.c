@@ -1,9 +1,5 @@
 #include "utils.h"
 
-void task3_main() {
-    // printf("Task3\n");
-}
-
 int main(int argc, char *argv[]) {
     
     FILE *fd_in = fopen("blockdag.in", "r");
@@ -39,7 +35,7 @@ int main(int argc, char *argv[]) {
         } 
         else if (strncmp(argv[1], TASK3, 3) == 0) 
         {
-            task3_main();
+            task3_main(graph, atoi(argv[2]));
             break;
         }
     default:

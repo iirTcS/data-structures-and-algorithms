@@ -16,6 +16,7 @@
 #define FUTURE "future"
 #define ANTICONE "anticone"
 #define GRAPH "G"
+#define START_NODE "Genesis"
 
 typedef struct TNode
 {
@@ -50,8 +51,11 @@ char* future(Graph* graph, ANode node);
 char* tips(Graph* graph);
 char* past(Graph* graph, ANode node);
 char* format_respone(char** nodes_names, int names_count, char* type, char* node);
-void bfs(Graph* graph, int *visited, int pos);
+void past_helper(Graph* graph, int *visited, int pos);
 void future_helper(Graph* graph, int* future_nodes, int node_id);
+int* anticone_helper(Graph* graph, ANode node);
 
+/* Task3 */
+void task3_main(Graph* graph, int k);
 
 #endif

@@ -1,5 +1,21 @@
 #include "utils.h"
 
+int pstrcmp( const void* a, const void* b )
+{
+    const char* stirng_a = *(const char**)a;
+    const char* stirng_b = *(const char**)b;
+
+    if (strlen(START_NODE) == strlen(stirng_a) &&
+        strcmp(START_NODE, stirng_a) == 0)
+        return -1;
+
+    if (strlen(START_NODE) == strlen(stirng_b) &&
+        strcmp(START_NODE, stirng_b) == 0)
+        return 1;
+
+    return strcmp(stirng_a, stirng_b);
+}
+
 char *format_respone(char** nodes_names, int names_count, char* type, char* node)
 {
     const int special_char = 5;
@@ -12,6 +28,9 @@ char *format_respone(char** nodes_names, int names_count, char* type, char* node
     formated_string[strlen(formated_string)] = ')';
     formated_string[strlen(formated_string)] = ' ';
     formated_string[strlen(formated_string)] = ':';
+    
+    qsort(nodes_names, names_count, sizeof(const char*), pstrcmp);
+
     for (int i = 0; i < names_count; i++)
     {
         int length = strlen(formated_string);
@@ -25,29 +44,6 @@ char *format_respone(char** nodes_names, int names_count, char* type, char* node
     if (nodes_names)
         free(nodes_names);
     return formated_string;
-}
-
-void bfs(Graph* graph, int *visited, int pos)
-{
-    if(visited[pos] == 0)
-    {
-        visited[pos] = 1;
-        ANode node = graph->Ad_List[pos]->next;
-        while (node != NULL)
-        {
-            visited[node->id] = 1;
-            node = node->next;
-        }
-
-        node = graph->Ad_List[pos]->next;
-        while (node != NULL)
-        {
-            visited[node->id] = 0;
-            bfs(graph, visited, node->id);
-            node = node->next;
-        }
-    }
-    return;
 }
 
 

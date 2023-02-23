@@ -1,10 +1,16 @@
 #include "utils.h"
 
+int* anticone_helper(Graph* graph, ANode node)
+{
+    int* visited = calloc(graph->nr_nodes, sizeof(int));
+    past_helper(graph, visited, node->id);
+    future_helper(graph, visited, node->id);
+    return visited;
+}
+
 char* anticone(Graph* graph, ANode node)
 {    
-    int* visited = calloc(graph->nr_nodes, sizeof(int));
-    bfs(graph, visited, node->id);
-    future_helper(graph, visited, node->id);
+    int* visited = anticone_helper(graph, node);
 
     int count = 0;
 
