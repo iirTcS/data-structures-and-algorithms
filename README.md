@@ -28,9 +28,12 @@ This project utilizes one way linked lists that take the form of the trains and 
 
 ### [Vigenère Chiper](./data-structures/Vigenère-Chiper)
 
-Multi-dicitonary based on AVL tree in combination with Double-Linked-Lists.
+Multi-dictionary based on AVL tree in combination with Double-Linked-Lists.
+It manages a large database using an binary tree proprieties for efficient searching and balanced storage, and linked lists for dynamic data management.
 
 ### [Phantom Ghostdag](./data-structures/Phantom-Ghostdag)
+
+A program that constructs a phantom GHOSTDAG using graph data structures to model and analyze the relationships between blocks in a blockchain network.
 
 ---
 
@@ -41,4 +44,11 @@ Multi-dicitonary based on AVL tree in combination with Double-Linked-Lists.
 
 ### [Comparison-of-Hash-tables-and-Red-Blacks-Trees](Comparison-of-Hash-tables-and-Red-Blacks-Trees)
 
+Comparing the performance of hash tables and red-black trees in terms of time and space complexity for storing and retrieving data in various use cases."
+
 ### [Polynomial Reduction](Polynomial-Reduction)
+
+A program that solves computationally hard problems by reducing them to simpler ones using polynomial reduction techniques, to improve efficiency and scalability of the solution.
+
+----
+
